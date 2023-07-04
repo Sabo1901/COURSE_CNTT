@@ -1,0 +1,149 @@
+﻿@model COURSE_CNTT.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@section naviheader{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"> <i class="fas fa-bars"></i> </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home/index" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/ManagerAccount" class="nav-link">Danh sách tài khoản</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/COURSEs/Create" class="nav-link">Thêm khóa học mới</a>
+        </li>
+    </ul>
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm tài khoản</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  
+                    <li class="breadcrumb-item active">Thêm mới</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+
+                    @using (Html.BeginForm("Register", "ManagerAccount", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(false )
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Họ tên</label>
+                                    @Html.TextBoxFor(x => x.FullName, new { @class = "form-control", @placeholder = "Họ tên" })
+                                    @Html.ValidationMessageFor(x => x.FullName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Chức vụ</label>
+                                    @Html.DropDownListFor(x => x.Role, ViewBag.Role as SelectList, "-Chọn quyền tài khoản-", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.Role, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Hình</label>
+                                    @Html.TextBoxFor(x => x.Anh, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.Anh, "", new { @class = "text-danger" })
+                                    <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                                    <input type="button" id="btnUpload" value="Tải lên" class="btn btn-secondary" style="margin-left: 1103px; margin-top: -63px;" />
+                                    <br />
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Số điện thoại</label>
+                                    @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", @placeholder = "Số điện thoại" })
+                                    @Html.ValidationMessageFor(x => x.Phone, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Ngày sinh:</label>
+
+                                        <input type="date" name="Ngaysinh" value=""
+                                               max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                   
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email" })
+                                    @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Mật khẩu</label>
+                                    @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Nhập lại mật khẩu</label>
+                                    @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Thêm mới</button>
+                                <a href="/admin/ManagerAccount/ListAdmin" class="btn btn-danger">Quay lại</a>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+</section>
+<!-- /.content -->
+@section upload
+{
+    <script>
+        $(function () {
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click');
+            });
+        });
+        $('#fileUpload').change(function () {
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#fileUpload').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/Admin/ManagerAccount/ProcessUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload').attr('src', urlImage);
+                            $('#Anh').val(urlImage);
+                        },
+                        error: function (err) {
+                            alert('Error ', err.statusText);
+                        }
+                    });
+            }
+        });
+    </script>
+}

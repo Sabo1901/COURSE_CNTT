@@ -1,0 +1,189 @@
+﻿@model IEnumerable<COURSE_CNTT.Models.IE.VIDEO>
+@{
+    ViewBag.Title = "Xem khóa học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string tenbai = null;
+
+}
+<link href="~/css/Details.css" rel="stylesheet" />
+
+
+<div class="container" style="width: 1378px; margin-left: 33px; margin-top: 10px;">
+
+
+    <div class="Tracks_wrapper__rjtW+">
+        <div class="Tracks_container__f6ZNT" id="learn-playlist">
+            <header class="Tracks_header__zNeCh">
+                <h1 class="Tracks_heading__CjgkM">Nội dung khóa học</h1>
+            </header>
+
+            @if (Model != null && Model.Any())
+            {
+                int dem = 0;
+                int count = 0;
+                string tenchuong = null;
+                foreach (var item in Model)
+                {
+                    foreach (var itemss in Model)
+                    {
+                        if (itemss.TENCHUONG == item.TENCHUONG)
+                        {
+                            count++;
+                            dem = count;
+                        }
+                        else
+                        {
+                            count = dem - count;
+                            count = 0;
+                        }
+                    }
+                    if (tenchuong != item.TENCHUONG)
+                    {
+                        <div class="Detail_items">
+                            <div class="TrackItem_wrapper__5kdF3 toggle-btn inactiveShowContent">
+                                <h3 class="TrackItem_title__tR93h">@item.TENCHUONG</h3>
+                                <span class="TrackItem_desc__KkiVq">@dem bài</span>
+                                <span class="TrackItem_icon__SLY+b">
+                                    <i class="svg-inline--fa fa fa-chevron-down btnlist" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="Detail_items_list">
+                                @foreach (var items in Model)
+                                {
+                                    if (items.TENCHUONG == item.TENCHUONG)
+                                    {
+                                        <div class="StepItem_wrapper__sWYHG">
+                                            <div class="StepItem_info__UckcT">
+                                                <h3 class="StepItem_title__PgsXi">@items.TENBAI</h3>
+                                                <p class="StepItem_desc__zN9Bs">
+                                                    <i class="svg-inline--fa fa fa-play-circle StepItem_lesson-icon__wGQGc" aria-hidden="true"></i>
+                                                    <span>@items.THOILUONGVIDEO</span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                    }
+
+                                }
+
+                            </div>
+                        </div>
+
+                    }
+                    tenbai = item.TENBAI;
+                    tenchuong = item.TENCHUONG;
+                }
+            }
+
+
+        </div>
+    </div>
+
+    <div class="Content_wrapper__rvE31">
+        <div class="Video_wrapper__aoEDT noselect">
+            <div class="VideoPlayer_wrapper__s0KXB">
+                <div class="VideoPlayer_player__CA18S" style="width: 100%; height: 100%;">
+                    <img src="~/Content/images/Untitled Project.jpg" style="width: 117%; height: 110%; object-fit: cover; margin-left: -52px;" />
+                    @*<iframe frameborder="0" allowfullscreen="1" src="" style="width: 100%; height: 100%;"> </iframe>*@
+                </div>
+            </div>
+        </div>
+        <div class="Video_content__BXh4c">
+            <div class="Video_contentTop__ngj7P">
+                <header>
+                    <h1 class="Heading_heading__VnWS7" style="font-weight: 700"></h1>
+                </header>
+
+            </div>
+        </div>
+        <hr />
+
+    </div>
+    <div class="Content_wrapper__rvE31" style=" width: 100%;">
+        <h5 style="font-size: 24px; font-weight: 700; color: #000000; margin-bottom: 10px;">Khóa học cần thiết</h5>
+        <div class="panel-body" style="margin-top: 40px; display: flex; width: 100%;">
+
+            @Html.Action("ListMenu", "COURSE")
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var srcc = "https://www.youtube.com/embed/aMccF9l4bTk?autoplay=1 https://www.youtube.com/embed/uz5LIP85J5Y?autoplay=1";
+
+    var src = "@foreach(var items in Model)
+    {
+       @items.LINKVIDEO;
+    }";
+    var arrListStr = src.split(' ');
+    console.log(arrListStr);
+    var namevideo = "@foreach(var items in Model)
+    {
+       @items.TENBAI;
+    }";
+    var arrNamevideo = namevideo.split('  ');
+    console.log(arrNamevideo);
+                // Lấy tham chiếu đến nút button
+    const VideoPlayer = document.querySelector(".VideoPlayer_player__CA18S")
+    const VideoName = document.querySelector(".Heading_heading__VnWS7")
+
+    var toggleButtons = document.querySelectorAll(".toggle-btn");
+    var contents = document.querySelectorAll(".Detail_items_list")
+
+    var detailBtns = document.querySelectorAll(".StepItem_wrapper__sWYHG")
+    var btnlists = document.querySelectorAll(".btnlist")
+    // Gắn sự kiện click cho nút button
+    function showContent(toggleButton, content, btnlist) {
+                    toggleButton.addEventListener("click", function () {
+                        // Kiểm tra trạng thái hiện tại của nút
+                        if (toggleButton.classList.contains("activeShowContent")) {
+                            // Nếu đang active, chuyển sang inactive
+                            toggleButton.classList.remove("activeShowContent");
+                            toggleButton.classList.add("inactiveShowContent");
+                            btnlist.classList.remove("fa-chevron-up");
+                            btnlist.classList.add("fa-chevron-down");
+                            content.style.display = "none"
+                        } else {
+                            // Nếu đang inactive, chuyển sang active
+                            toggleButton.classList.remove("inactiveShowContent");
+                            toggleButton.classList.add("activeShowContent");
+                            btnlist.classList.remove("fa-chevron-down");
+                            btnlist.classList.add("fa-chevron-up");
+                            content.style.display = "block"
+                        }
+                    });
+            }
+
+            detailBtns.forEach((detailBtn, index) => {
+        detailBtn.addEventListener("click", function () {
+            if (detailBtn.classList.contains("activeShowVideo")) {
+                    // Nếu đang active, không làm gì cả
+                    return
+                } else {
+                    // Nếu đang inactive, chuyển sang active
+                    detailBtn.classList.add("activeShowVideo");
+                VideoPlayer.innerHTML = `<iframe frameborder="0" allowfullscreen="1" src=${arrListStr[index]} style="width: 100%; height: 100%;"></iframe>`
+                VideoName.innerHTML = arrNamevideo[index];
+                // Xóa active của các nút khác
+                detailBtns.forEach((detailBtn) => {
+                    if (detailBtn.classList.contains("activeShowVideo") && detailBtn != this) {
+                        detailBtn.classList.remove("activeShowVideo");
+                    }
+                })
+            }
+            })
+        })
+
+    for (let i = 0; i < toggleButtons.length; i++) {
+        showContent(toggleButtons[i], contents[i], btnlists[i]);
+    }
+
+
+</script>
+
+

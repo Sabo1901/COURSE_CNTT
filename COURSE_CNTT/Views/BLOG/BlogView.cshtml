@@ -1,0 +1,41 @@
+﻿@model IEnumerable<COURSE_CNTT.Models.IE.BLOG>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-4__30Uoi index-module_l-3__MjWvb">
+            <div class="CommonItem_wrapper__1FbHi Home_courseItem__aIeZ4" style="padding-bottom: 23px;">
+                <a class="CommonItem_thumb__ew8Jj CommonItem_has-link__VLLrX" href="@Url.Action("Details","BLOG",new { @id = item.MABLOG })" style="background-image: url('@item.Hinh')">
+
+                </a>
+                <h3 class="CommonItem_title__EpYrE" style="font-weight: 600;">
+                    <a href="/blog/details/@item.MABLOG">@item.TIEUDE</a>
+                </h3>
+               
+                <div class="PostItem_author__-CiNM" style="display: flex;">
+                    <a href="/User/details/@item.USER.Id">
+                        <div class="FallbackAvatar_avatar__gmj3S FallbackAvatar_pro__-8mK+" style="--font-size:2.9px;">
+                            @if (item.USER.Anh != null)
+                            {
+                                <img src="@item.USER.Anh" alt=" GzW">
+                            }
+                            else
+                            {
+                                <img src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="@item.USER.Id">
+
+                            }
+
+                        </div>
+                    </a>
+                    <a href="/User/Details/@item.USER.Id" style="margin-top: 3px; width: 222px; "><span style="color: #292929; font-weight: 600; margin-left: 8px;">  @item.USER.FullName</span></a>
+                  
+                    <div class="CourseItem_students-count__92kIg" >
+                        <i class="fa fa-users" aria-hidden="true" style="display: var(--fa-display, inline-block); height: 1em; overflow: visible; vertical-align: -0.125em;"></i>
+                        <span>@item.ViewCount </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}

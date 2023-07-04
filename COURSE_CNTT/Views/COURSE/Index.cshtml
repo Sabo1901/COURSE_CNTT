@@ -1,0 +1,214 @@
+﻿@model COURSE_CNTT.Models.IE.COURSE
+@using COURSE_CNTT.Models.IE
+@using COURSE_CNTT.repository
+@{
+    ViewBag.Title = "Xem khóa học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var video = ViewBag.video;
+    var chuong = ViewBag.count;
+
+    var list = new List<CTQLCOURSE>();
+    if (Session["MaGH"] != null)
+    {
+
+        list = QLCOURSEs.dsCOURSEs((int)Session["MaGH"]);
+    }
+
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="~/css/menu.css" rel="stylesheet" />
+<link href="~/css/ChiTiet.css" rel="stylesheet" />
+
+<div class="container" style="width: 1355px; margin-top: 40px;">
+
+    <div class="content_left">
+
+        <h1>@Model.TENCOURSE</h1>
+        <p style="font-size: 1.4rem; line-height: 1.6;">@Model.Chitiet</p>
+        @if (Model.Mota == null)
+        {
+            <div class="CourseDetail_topicList__vLbNG" style="display: none;">
+            </div>
+        }
+        else
+        {
+            <div class="CourseDetail_topicList__vLbNG">
+                <h2 class="CourseDetail_topicHeading__xbkxm">Bạn học được gì?</h2>
+                <section class="index-module_row__-AHgh">
+                    <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-12__340Ve">
+                        <ul class="CourseDetail_list__pdfCp">
+                            @Html.Raw(Model.Mota)
+                            @*<div class="Course_mota">
+                                <li><div class="fa fa-check yeucau"></div><span>Các kiến thức cơ bản, nền móng của ngành IT</span></li>
+                                <li><div class="fa fa-check yeucau"></div><span>Các khái niệm, thuật ngữ cốt lõi khi triển khai ứng dụng</span></li>
+                                <li><div class="fa fa-check yeucau"></div><span>Hiểu hơn về cách internet và máy vi tính hoạt động</span></li>
+                                <li><div class="fa fa-check yeucau"></div><span>Các mô hình, kiến trúc cơ bản khi triển khai ứng dụng</span></li>
+                            </div>*@
+
+                        </ul>
+                    </section>
+                </section>
+            </div>
+        }
+
+        <h2 style="font-size: 2rem; font-weight: 700;">Nội dung khóa học:</h2>
+        <ul style="padding-left: 0;">
+            <li><b>@chuong</b> Chương</li>
+            <li style="font-size: 1.4rem; margin-top: 1px; opacity: .8; padding: 0 8px;">•</li>
+            <li><b>@video</b> Bài học</li>
+            @*<li style="font-size: 1.4rem; margin-top: 1px; opacity: .8; padding: 0 8px;">•</li>
+            <li>Thời lượng <b>@Model.THOILUONG</b></li>*@
+        </ul>
+        <div>
+            @Html.Action("DetailsCourse", "COURSE")
+        </div>
+        @if (Model.Yeucau == null)
+        {
+            <div class="request" style="display: none;">
+               
+            </div>
+        }
+        else
+        {
+            <div class="request">
+                <h2 style="font-size: 2rem; font-weight: 700; margin: 70px 0 15px;">Yêu cầu</h2>
+                <section class="request_index" style="margin-left: -12px; margin-right: -12px;">
+                    <section class="request_index_chitiet">
+                        @*<ul class="request_index_chitiet_ul">
+                            <li><div class="fa fa-check yeucau"></div><span>Máy vi tính kết nối internet (Windows, Ubuntu hoặc MacOS)</span></li>
+                            <li><div class="fa fa-check yeucau"></div><span>Ý thức tự học cao, trách nhiệm cao, kiên trì bền bỉ không ngại cái khó</span></li>
+                            <li><div class="fa fa-check yeucau"></div><span>Khi học nếu có khúc mắc hãy tham gia hỏi/đáp tại group FB: Học lập trình web cùng H</span></li>
+                            <li><div class="fa fa-check yeucau"></div><span>Bạn không cần biết gì hơn nữa, trong khóa học tôi sẽ chỉ cho bạn những gì bạn cần phải biết</span></li>
+                        </ul>*@
+                        @Html.Raw(Model.Yeucau)
+                    </section>
+                </section>
+            </div>
+        }
+
+
+    </div>
+    <div class="content_right">
+        @using (Html.BeginForm("AddToCourse", "ManagerCOURSEs",
+           new { @id = Model.MACOURSE, @strURL = Request.Url.ToString() }))
+        {
+            <div class="Course_detail">
+                <div class="image_course" data-toggle="modal" data-target="#exampleModal">
+                    <div class="image_course_play" style="background-image: url('@Model.HINH')"></div>
+                    <span class="fas fa-play-circle" style=" color: #c5c5c5; font-size: 6rem; left: 50%; position: absolute; top: 50%; -webkit-transform: translate(-50%,-50%); transform: translate(-50%,-50%); transition: all .3s linear; z-index: 1;"></span>
+                    <p style="bottom: 0; color: #fff; font-size: 1.6rem; font-weight: 600; left: 0; position: absolute; right: 0; text-align: center; width: 100%; z-index: 1;">Xem giới thiệu khóa học</p>
+                </div>
+                <h5 style="color: #24294b; font-size: 32px; font-weight: 400; margin: 0 auto; opacity: .8; ">Miễn phí</h5>
+                @if (Session["MaGH"] != null)
+                {
+
+                    var text = list.Find(m => m.MACOURSE == Model.MACOURSE);
+                    if (text == null)
+                    {
+                        <div onclick="alert('Bạn đã đăng kí khóa học thành công')">
+                            <a href="@Url.Action("AddToCourse", "ManagerCOURSEs", new { @id = Model.MACOURSE, @strURL = Request.Url.ToString() })"
+                               style=" text-align: -webkit-center">
+                                <button class="btn btn-success"
+                                        style="display: block; font-size: 1.6rem; margin-top: 16px; min-width: 180px; padding: 10px 16px; background-color: #419ddd; color: #fff; border-radius: 20px; font-weight: 600; border: none;">
+                                    <span>Đăng ký khóa học</span>
+                                </button>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <a href="@Url.Action("Details", "COURSE", new { @id = Model.MACOURSE })"
+                               style=" text-align: -webkit-center" class="btn btn_xem">
+                                <span>Vào học ngay</span>
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div>
+                        <a href="/account/login" style=" text-align: -webkit-center; display: block; font-size: 1.6rem; margin-top: 16px; min-width: 180px; padding: 10px 16px; background-color: #419ddd; color: #fff; border-radius: 20px; font-weight: 600; border: none; ">
+                            <span>Đăng ký khóa học</span>
+                        </a>
+                    </div>
+                }
+                <ul>
+                    <li>
+                        <div class="fa-solid fa-gauge-high"></div>
+                        <span style="padding-left: 20px;">Trình độ cơ bản</span>
+                    </li>
+                    <li>
+                        <div class="fas fa-film"></div>
+                        <span style="padding-left: 20px;">Tổng số <b>@video</b> bài học</span>
+                    </li>
+                    <li>
+                        <div class="fa-solid fa-clock"></div>
+                        <span style="padding-left: 20px;">Thời lượng <b></b></span>
+                    </li>
+                    <li>
+                        <div class="fa fa-battery-full"></div>
+                        <span style="padding-left: 20px;">Học mọi lúc, mọi nơi</span>
+                    </li>
+                </ul>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+<div>
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="margin-top: 60px; border-radius: 18px; width: 870px; height: 600px; margin-left: -115px; ">
+                <div class="modal-header" style="border-bottom: 1px solid #ffffff; padding-bottom: 0; ">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="modal-title" id="exampleModalLabel">
+                        <h3>Giới thiệu khóa học</h3>
+                        <h2>@Model.TENCOURSE</h2>
+                    </div>
+                </div>
+                <div class="modal-body" style="height: 450px; margin: 15px;">
+
+                    <div class="VideoPlayer_wrapper__s0KXB">
+                        <div class="VideoPlayer_player__CA18S" style="width: 100%; height: 100%;">
+                            <iframe frameborder="0" allowfullscreen="1" src="@Model.video" style="width: 100%; height: 100%;"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Lấy tham chiếu đến nút button
+        var toggleButtons = document.querySelectorAll(".toggle-btn");
+        var contents = document.querySelectorAll(".tab-content")
+        var detailBtns = document.querySelector(".image_course_play")
+        // Gắn sự kiện click cho nút button
+        function showContent(toggleButton, content) {
+            toggleButton.addEventListener("click", function () {
+                // Kiểm tra trạng thái hiện tại của nút
+                if (toggleButton.classList.contains("activeShowContent")) {
+                    // Nếu đang active, chuyển sang inactive
+                    toggleButton.classList.remove("activeShowContent");
+                    toggleButton.classList.add("inactiveShowContent");
+                    content.style.display = "none"
+                } else {
+                    // Nếu đang inactive, chuyển sang active
+                    toggleButton.classList.remove("inactiveShowContent");
+                    toggleButton.classList.add("activeShowContent");
+                    content.style.display = "block"
+                }
+            });
+        }
+        for (let i = 0; i < toggleButtons.length; i++) {
+            showContent(toggleButtons[i], contents[i]);
+        }
+    </script>

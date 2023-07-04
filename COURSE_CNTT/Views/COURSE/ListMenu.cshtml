@@ -1,0 +1,22 @@
+﻿@model IEnumerable<COURSE_CNTT.Models.IE.COURSE>
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-4__30Uoi index-module_l-3__MjWvb">
+                <div class="CommonItem_wrapper__1FbHi Home_courseItem__aIeZ4" style="padding-bottom: 23px;">
+                    <a class="CommonItem_thumb__ew8Jj CommonItem_has-link__VLLrX" href="@Url.Action("Index","COURSE",new { @id = item.MACOURSE })" style="background-image: url('@item.HINH')">
+                        <button class="Button_btn__RW1e2 CommonItem_cta-btn__OK+oX"> Xem khóa học </button>
+                    </a>
+                    <h3 class="CommonItem_title__EpYrE" style="font-weight: 600;">
+                        <a href="@Url.Action("Index","COURSE",new { @id = item.MACOURSE })">@item.TENCOURSE</a>
+                    </h3>
+                    <div class="CourseItem_students-count__92kIg">
+                        <i class="fa fa-users" aria-hidden="true" style="display: var(--fa-display, inline-block); height: 1em; overflow: visible; vertical-align: -0.125em;"></i>
+                        <span> @item.ViewCount</span>
+                    </div>
+                </div>
+            </section>
+        }
+    }

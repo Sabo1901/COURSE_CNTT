@@ -1,0 +1,43 @@
+﻿body {
+}
+.App_withSidebarContent__o4VlQ {
+    flex: 1 1;
+    max-width: 100%;
+    padding: 0 40px 0 20px;
+}
+.DefaultLayout_container__NgAo7 {
+    margin-bottom: 60px;
+    padding: 8px 44px 0;
+}
+.DefaultLayout_heading__AvBHu {
+    color: #242424;
+    font-size: 2.8rem;
+    font-weight: 900;
+}
+.DefaultLayout_container-top__l5XfT {
+    margin-bottom: 80px;
+}
+.UsersCourses_content__qH4IR {
+    position: relative;
+    top: -16px;
+}
+.ScrollList_body__iMN-l {
+    min-height: 200px;
+    padding-bottom: 0;
+}
+.index-module_row__-AHgh {
+    margin-left: -12px;
+    margin-right: -12px;
+}
+.index-module_l-3__MjWvb {
+    width: 25%;
+}
+.index-module_col__2EQm9 {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.CommonItem_wrapper__1FbHi {
+    flex-shrink: 0;
+    margin-bottom: 32px;
+    overflow: hidden;
+}

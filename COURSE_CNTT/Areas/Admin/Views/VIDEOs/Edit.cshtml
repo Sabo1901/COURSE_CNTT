@@ -1,0 +1,83 @@
+﻿@model COURSE_CNTT.Models.IE.VIDEO
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section naviheader{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"> <i class="fas fa-bars"></i> </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home/index" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/VIDEOs" class="nav-link">Danh sách video bài học</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/VIDEOs/Edit" class="nav-link">Chỉnh sửa video mới</a>
+        </li>
+    </ul>
+}
+
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin thêm mới bài giảng</h3>
+        </div>
+        <div class="card-body">
+            <div class="bs-stepper-content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.MAVIDEO)
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Link video (Thay watch?v= thành embed/ ở link youtube + '?showinfo=0&autoplay=1&controls=1')</label>
+                        @Html.EditorFor(model => model.LINKVIDEO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LINKVIDEO, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tên khóa học:</label>
+                        @Html.DropDownList("MACOURSE", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.MACOURSE, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tên video:</label>
+                        @Html.EditorFor(model => model.TENBAI, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TENBAI, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tên chương:</label>
+                        @Html.EditorFor(model => model.TENCHUONG, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.TENCHUONG, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Thời lượng video:</label>
+                        @Html.EditorFor(model => model.THOILUONGVIDEO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(x => x.THOILUONGVIDEO, null, new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <a href="/admin/videos" class="btn btn-danger">Quay lại</a>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>

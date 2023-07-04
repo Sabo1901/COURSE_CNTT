@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+@using COURSE_CNTT.Models.IE
+@using COURSE_CNTT.repository
+@{
+    var list = new List<CTQLCOURSE>();
+    if (Session["MaGH"] != null)
+    {
+
+        list = QLCOURSEs.dsCOURSEs((int)Session["MaGH"]);
+    }
+ 
+    COURSE_CNTT.Models.ApplicationUser user = new COURSE_CNTT.Models.ApplicationUser();
+    if (Session["acc"] != null)
+    {
+        user = Session["acc"] as COURSE_CNTT.Models.ApplicationUser;
+
+    }
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LIT</title>
+    <link href="~/Content/images/low poly wolf face.jpg" rel="icon" style="border-radius: 18px; flex-shrink: 0; height: 38px; object-fit: contain; width: 38px;">
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link href="~/Content/jquery-ui.css" rel="stylesheet" />*@
+    <link href="~/css/Layout.css" rel="stylesheet" />
+    <link href="~/css/menu.css" rel="stylesheet" />
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <!-- Customized Bootstrap Stylesheet -->
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
+</head>
+<body>
+
+
+    <div class="NavBar_wrapper__4m3K5" id="header">
+        <div class="NavBar_logo__Rgo-5">
+            <a href="/home/index"><img src="~/Content/images/low poly wolf face.jpg" alt="HHC"></a>
+            <h4 class="NavBar_logoHeading__bs7MP">Learn IT</h4>
+        </div>
+        <div class="NavBar_body__4Yhth d-flex-center">
+            <div>
+                <div class="Search_wrapper__Bwvae d-flex-center">
+                    <div class="Search_searchIcon__-23JY"></div>
+                    @using(Html.BeginForm("LayTuKhoaTimKiem", "TimKiem"))
+                    {
+                        <input type = "text" id = "txtKeyword" class="Search_input__GnMba" name="keyword" placeholder="Tìm kiếm khóa học, bài viết, video, ...">
+                        @*<input type="submit" value="Tìm kiếm" />*@
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        <div class="NavBar_actions__nSNzo">
+            @if (!Request.IsAuthenticated)
+            {
+                <div id="navbar-actions-portal"></div>
+                <a href="/Account/login" class="NavBar_loginBtn__5DxZL">Đăng nhập</a>
+            }
+            else
+            {
+                <div id="navbar-actions-portal"></div>
+                <div>
+                    <button class="NavBar_myLearn__vCvEB" aria-expanded="false">Khóa học của tôi</button>
+                    <div data-tippy-root="" class="manageCOURSEs" id="tippy-2" style="z-index: 9999; position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-118.4px, 58.4px, 0px);">
+                        <ul class="Tippy-module_wrapper__1s5m5 MyCourses_wrapper__5LBCf">
+                            <div class="MyCourses_header__3XJPO">
+                                <h6 class="MyCourses_heading__88N5H">Khóa học của tôi</h6>
+                                <a class="MyCourses_view-all-btn__ZpnIF" href="/User/Index/">Xem tất cả</a>
+                            </div>
+
+                            @if (list != null && list.Any())
+                            {
+                                foreach (var item in list)
+                                {
+
+                                    <div class="MyCourses_content__YVcRz">
+                                        <div class="MyCourses_course-item__QZjzt">
+                                            <a href="/COURSE/Details/@item.MACOURSE">
+                                                <img class="MyCourses_course-thumb__eJEMK" src="@item.Hinh" alt="Alternate Text" />
+                                            </a>
+                                            <div class="MyCourses_course-info__lBFc3">
+                                                <h3 class="MyCourses_course-title__cxlMF"><a href="/COURSE/Details/@item.MACOURSE">@item.TENCOURSE</a></h3>
+                                                <p class="MyCourses_last-completed__Ar6Yh">Học cách đây </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+             
+                <div class="NavBar_avatar-wrapper__j7jMj" style="margin-left: 12px;" aria-expanded="false">
+                    <div class="FallbackAvatar_avatar__gmj3S" style="font-size:3.2px;">
+                        @if (user.Anh != null)
+                        {
+                            <img class="NavBar_avatar__OG7ib" src="@user.Anh.ToString()" alt="1118">
+
+                        }
+                        else
+                        {
+                            <img class="NavBar_avatar__OG7ib" src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="1118">
+
+                        }
+
+                    </div>
+                </div>
+                <div data-tippy-root="" class="info_user" id="tippy-4" style="z-index: 9999; position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-28px, 57.6px, 0px);">
+
+                    <ul class="Tippy-module_wrapper__1s5m5 UserMenu_wrapper__kevhj hide-on-click">
+                        <div class="UserMenu_user__GXFLp">
+                            <div class="UserMenu_avatarWrapper__9ABYL">
+                                <div class="FallbackAvatar_avatar__gmj3S" style="font-size:3.2px;">
+                                    @if (user.Anh == null)
+                                    {
+                                        <img class="NavBar_avatar__OG7ib" src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="1118">
+                                    }
+                                    else
+                                    {
+                                        <img class="NavBar_avatar__OG7ib" src="@user.Anh.ToString()" alt="1118">
+
+                                    }
+                                </div>
+                            </div>
+                            <div class="UserMenu_info__UqeZT">
+                                <span class="UserMenu_name__L18s-">@User.Identity.Name</span>
+                                <div class="UserMenu_username__7qkRU"></div>
+                            </div>
+                        </div>
+                        <hr>
+                        <ul class="UserMenu_list__FI9-C">
+                            <li><a class="UserMenu_item__NXwf1" href="/User/Index/">Trang cá nhân</a></li>
+                        </ul>
+                        <hr>
+                        <ul class="UserMenu_list__FI9-C">
+                            <li><a class="UserMenu_item__NXwf1" href="/blog/create">Viết blog</a></li>
+                            <li><a class="UserMenu_item__NXwf1" href="/BLOG/blogUser">Bài viết của tôi</a></li>
+                        </ul>
+                        <hr>
+                        <ul class="UserMenu_list__FI9-C">
+                            <li><a href="javascript:document.getElementById('logOffForm').submit()" class="UserMenu_item__NXwf1">Đăng xuất</a></li>
+                        </ul>
+                    </ul>
+                </div>
+
+            }
+
+        </div>
+        @if (Request.IsAuthenticated)
+        {
+            <div style="display:none">
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @id = "logOffForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                }
+            </div>
+        }
+    </div>
+    <div class="App_withSidebar__8lwIi">
+        <div class="App_sidebarWrap__3LwsB">
+
+                <div class="Sidebar_wrapper__kUJFm" id="sidebar">
+                    <div>
+                        <div class="CreateButton_wrapper__Bb6o6" aria-expanded="false" style="line-height: 4.528571;">
+                            <a href="/blog/create"> <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus CreateButton_icon__ipBrz" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="color: #ffffff;"><path fill="currentColor" d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"></path></svg></a>
+                        </div>
+                    </div>
+                    <ul class="Sidebar_list__HnCzM" style="margin-top: 22px; margin-left: -28px; ">
+                        <li>
+                            <a aria-current="page" class="Sidebar_itemBtn__Q78b7 Sidebar_active__uvck8" style="line-height: 3.528571;" href="/home/index">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="house" style=" margin-bottom: -9px;" class="svg-inline--fa fa-house " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M575.8 255.5C575.8 273.5 560.8 287.6 543.8 287.6H511.8L512.5 447.7C512.5 450.5 512.3 453.1 512 455.8V472C512 494.1 494.1 512 472 512H456C454.9 512 453.8 511.1 452.7 511.9C451.3 511.1 449.9 512 448.5 512H392C369.9 512 352 494.1 352 472V384C352 366.3 337.7 352 320 352H256C238.3 352 224 366.3 224 384V472C224 494.1 206.1 512 184 512H128.1C126.6 512 125.1 511.9 123.6 511.8C122.4 511.9 121.2 512 120 512H104C81.91 512 64 494.1 64 472V360C64 359.1 64.03 358.1 64.09 357.2V287.6H32.05C14.02 287.6 0 273.5 0 255.5C0 246.5 3.004 238.5 10.01 231.5L266.4 8.016C273.4 1.002 281.4 0 288.4 0C295.4 0 303.4 2.004 309.5 7.014L564.8 231.5C572.8 238.5 576.9 246.5 575.8 255.5L575.8 255.5z" class=""></path></svg>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="Sidebar_itemBtn__Q78b7" href="/lotrinh" style="line-height: 3.528571;">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="road" class="svg-inline--fa fa-road " style=" margin-bottom: -9px;" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M256 96C256 113.7 270.3 128 288 128C305.7 128 320 113.7 320 96V32H394.8C421.9 32 446 49.08 455.1 74.63L572.9 407.2C574.9 413 576 419.2 576 425.4C576 455.5 551.5 480 521.4 480H320V416C320 398.3 305.7 384 288 384C270.3 384 256 398.3 256 416V480H54.61C24.45 480 0 455.5 0 425.4C0 419.2 1.06 413 3.133 407.2L120.9 74.63C129.1 49.08 154.1 32 181.2 32H255.1L256 96zM320 224C320 206.3 305.7 192 288 192C270.3 192 256 206.3 256 224V288C256 305.7 270.3 320 288 320C305.7 320 320 305.7 320 288V224z"></path></svg>
+                                <span>Lộ trình</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="Sidebar_itemBtn__Q78b7" href="/course/khoahoc" style="line-height: 3.528571;">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="lightbulb" class="svg-inline--fa fa-lightbulb " style=" margin-bottom: -9px;" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M112.1 454.3c0 6.297 1.816 12.44 5.284 17.69l17.14 25.69c5.25 7.875 17.17 14.28 26.64 14.28h61.67c9.438 0 21.36-6.401 26.61-14.28l17.08-25.68c2.938-4.438 5.348-12.37 5.348-17.7L272 415.1h-160L112.1 454.3zM191.4 .0132C89.44 .3257 16 82.97 16 175.1c0 44.38 16.44 84.84 43.56 115.8c16.53 18.84 42.34 58.23 52.22 91.45c.0313 .25 .0938 .5166 .125 .7823h160.2c.0313-.2656 .0938-.5166 .125-.7823c9.875-33.22 35.69-72.61 52.22-91.45C351.6 260.8 368 220.4 368 175.1C368 78.61 288.9-.2837 191.4 .0132zM192 96.01c-44.13 0-80 35.89-80 79.1C112 184.8 104.8 192 96 192S80 184.8 80 176c0-61.76 50.25-111.1 112-111.1c8.844 0 16 7.159 16 16S200.8 96.01 192 96.01z"></path></svg>
+                                <span>Học</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="Sidebar_itemBtn__Q78b7" href="/blog" style="line-height: 3.528571;">
+                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="newspaper" class="svg-inline--fa fa-newspaper " style=" margin-bottom: -9px;" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M480 32H128C110.3 32 96 46.33 96 64v336C96 408.8 88.84 416 80 416S64 408.8 64 400V96H32C14.33 96 0 110.3 0 128v288c0 35.35 28.65 64 64 64h384c35.35 0 64-28.65 64-64V64C512 46.33 497.7 32 480 32zM272 416h-96C167.2 416 160 408.8 160 400C160 391.2 167.2 384 176 384h96c8.836 0 16 7.162 16 16C288 408.8 280.8 416 272 416zM272 320h-96C167.2 320 160 312.8 160 304C160 295.2 167.2 288 176 288h96C280.8 288 288 295.2 288 304C288 312.8 280.8 320 272 320zM432 416h-96c-8.836 0-16-7.164-16-16c0-8.838 7.164-16 16-16h96c8.836 0 16 7.162 16 16C448 408.8 440.8 416 432 416zM432 320h-96C327.2 320 320 312.8 320 304C320 295.2 327.2 288 336 288h96C440.8 288 448 295.2 448 304C448 312.8 440.8 320 432 320zM448 208C448 216.8 440.8 224 432 224h-256C167.2 224 160 216.8 160 208v-96C160 103.2 167.2 96 176 96h256C440.8 96 448 103.2 448 112V208z"></path></svg>
+                                <span>Blog</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            
+
+        </div>
+        <div class="App_withSidebarContent__o4VlQ">
+            <div class="container body-content">
+                @RenderBody()
+                <hr />
+            </div>
+            <footer class="container-fluid footer text-white mt-5 pt-5 px-0 position-relative overlay-top" style="width: 1180px;">
+                <div class="row mx-0 pt-5 px-sm-3 px-lg-5 mt-4" style="width: 1400px; height: 260px; background: linear-gradient(to right, rgb(24 170 243), rgb(65 108 214 / 13%)); ">
+                    <div class="col-lg-3 col-md-6 mb-5" style="margin-left: 35px; width: 23%; font-family: 'Google Sans',-apple-system,system-ui,BlinkMacSystemFont, Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;">
+                        <h4 class="text-white text-uppercase mb-4 name-foot" style="letter-spacing: 1.2px;"><img src="~/Content/images/low poly wolf face.jpg" style="border-radius: 8px; flex-shrink: 0; height: 38px; object-fit: contain; width: 38px;" alt="HHC"> Learn IT</h4>
+                        <p><i class="fa fa-map-marker-alt mr-2" style="margin-right:5px;"></i> VQ4P+249, Phường Tân Phú, Quận 9, Thành phố Hồ Chí Minh</p>
+                        <p><i class="fa fa-phone-alt mr-2" style="margin-right:5px;"> </i> 0943218184</p>
+                        <p class="m-0"><i class="fa fa-envelope mr-2" style="margin-right:5px;"></i> HieuHocLapTrinh@gmail.com</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-5" style="width: 21%;">
+                        <h4 class="text-white text-uppercase mb-4 name-foot" style="letter-spacing: 2px;">Kênh truyền thông</h4>
+                        <div class="d-flex justify-content-start">
+                            <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="https://www.facebook.com/highlandscoffeevietnam"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-lg btn-outline-light btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-5">
+                        <h4 class="text-white text-uppercase mb-4 name-foot" style="letter-spacing: 2px;">Thống kê truy cập</h4>
+                        @Html.Action("Refresh", "Home")
+
+                    </div>
+                </div>
+
+            </footer>
+        </div>
+
+    </div>
+
+    @*<script src="~/Scripts/jquery-ui.js"></script>
+
+    <script src="~/Content/assets/js/Basecontroller.js"></script>*@
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/ckfinder/ckfinder.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+
+</body>
+</html>
+<script>
+    // Lấy tham chiếu đến nút button
+    var toggleButtons = document.querySelectorAll(".NavBar_myLearn__vCvEB");
+    var contents = document.querySelectorAll(".manageCOURSEs");
+    var Buttons = document.querySelectorAll(".NavBar_avatar-wrapper__j7jMj");
+    var prifile = document.querySelectorAll(".info_user")
+    // Gắn sự kiện click cho nút button
+    function showContent(toggleButton, content) {
+        toggleButton.addEventListener("click", function () {
+            // Kiểm tra trạng thái hiện tại của nút
+            if (toggleButton.classList.contains("activeShowContent")) {
+                // Nếu đang active, chuyển sang inactive
+                toggleButton.classList.remove("activeShowContent");
+                toggleButton.classList.add("inactiveShowContent");
+                content.style.display = "none"
+            } else {
+                // Nếu đang inactive, chuyển sang active
+                toggleButton.classList.remove("inactiveShowContent");
+                toggleButton.classList.add("activeShowContent");
+                content.style.display = "block"
+            }
+        });
+    }
+    for (let i = 0; i < toggleButtons.length; i++) {
+        showContent(toggleButtons[i], contents[i]);
+    }
+    for (let i = 0; i < Buttons.length; i++) {
+        showContent(Buttons[i], prifile[i]);
+    }
+
+</script>

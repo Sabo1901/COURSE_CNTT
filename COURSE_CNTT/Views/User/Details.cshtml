@@ -1,0 +1,216 @@
+﻿@model COURSE_CNTT.Models.ApplicationUser
+@using COURSE_CNTT.Models.IE
+@using COURSE_CNTT.repository
+@{
+    var list = new List<CTQLCOURSE>();
+    var listCourse = QLCOURSEs.dsCOURSEsUser(Model.Id);
+    var listblog = QLCOURSEs.dsBlog(Model.Id);
+    if (Session["MaGH"] != null)
+    {
+
+
+        list = QLCOURSEs.dsCOURSEs((int)Session["MaGH"]);
+    }
+
+
+    ViewBag.Title = Model.FullName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/profile.css" rel="stylesheet" />
+<section class="index-module_grid__1q71E index-module_wide__3c1pI" style="max-width: 1100px; margin-top: 67px; margin-left: 135px;">
+    @if (Model.ANHBIA == null)
+    {
+        <div class="Profile_banner__tdS71" src="" style="background-image: url(https://i.pinimg.com/originals/03/dc/16/03dc16c3d2540ccb6beb758631f4b252.jpg); position: relative; ">
+            <div class="Profile_user__iDkf1">
+                <div class="Profile_user-avatar__y8fSV">
+                    <div class="FallbackAvatar_avatar__gmj3S" style="font-size:17.2px;">
+                        @if (Model.Anh == null)
+                        {
+                            <img class="avatar" src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="Null">
+                        }
+                        else
+                        {
+                            <img class="avatar" src="@Model.Anh" alt="Null">
+                        }
+                    </div>
+                </div>
+                <div class="Profile_user-name__xIJlY"><span>@Model.FullName</span></div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="Profile_banner__tdS71" src="" style="background-image: url(@Model.ANHBIA); position: relative;">
+            <div class="Profile_user__iDkf1">
+                <div class="Profile_user-avatar__y8fSV">
+                    <div class="FallbackAvatar_avatar__gmj3S" style="font-size:17.2px;">
+                        @if (@Model.Anh == null)
+                        {
+                            <img class="avatar" src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="Null">
+                        }
+                        else
+                        {
+                            <img class="avatar" src="@Model.Anh" alt="Null">
+                        }
+                    </div>
+                </div>
+                <div class="Profile_user-name__xIJlY"><span>@Model.FullName</span></div>
+            </div>
+        </div>
+    }
+
+    <div class="Profile_container__BVoU6">
+        <section class="index-module_row__-AHgh">
+            <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-5__2UHWy">
+                <div class="content-left">
+                    <div class="Box_wrapper__uAKHJ">
+                        <h3 class="Box_title__kFB9-" style="margin-bottom: 30px; margin-left: 123px; font-size: 2.2rem; ">Giới thiệu</h3>
+
+                        <div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Họ tên:</label>
+                                @Html.DisplayFor(x => x.FullName, new { htmlAttributes = new { @class = "InputField_fieldContentInput__lO21W" } })
+                            </div>
+                            <div class="form-group" style="margin-bottom: 26px;">
+                                <label>Ngày sinh</label>
+
+                                <input type="date" name="NGAYSINH" value="@DateTime.Parse(Model.NGAYSINH.ToString()).ToString("yyyy-MM-dd")"
+                                       max="@DateTime.Now.ToString("yyyy-MM-dd")" readonly="readonly" />
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email:</label>
+                                @Html.DisplayFor(x => x.Email, new { htmlAttributes = new { @class = "InputField_fieldContentInput__lO21W" } })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Số điện thoại:</label>
+                                @Html.DisplayFor(x => x.Phone, new { htmlAttributes = new { @class = "InputField_fieldContentInput__lO21W" } })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Box_wrapper__uAKHJ">
+                        <h4 class="Box_title__kFB9-">Bài viết</h4>
+                        <div>
+                            @if (listblog == null)
+                            {
+                                <div class="Profile_no-result__O7P-W">Chưa có hoạt động gần đây</div>
+                            }
+                            else
+                            {
+                                if (listblog != null && listblog.Any())
+                                {
+                                    foreach (var item in listblog)
+                                    {
+                                        <div>
+                                            <div class="Profile_inner__EK7zA">
+                                                <a class="Profile_thumb__dY3wD" href="/BLOG/details/@item.MABLOG">
+                                                    <img src="@item.Hinh" class="Profile_thumb-image__vz1Iq" alt="HTML CSS từ Zero đến Hero">
+                                                </a>
+                                                <div class="info">
+                                                    <h3 class="Profile_info-title__nwecV"><a href="/COURSE/details/@item.MABLOG">@item.TIEUDE</a></h3>
+                                                    <p class="Profile_info-desc__JTJYr">@item.ChitietTieuDe</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                }
+                            }
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-7__kRbS-">
+                <div class="Box_wrapper__uAKHJ">
+                    <h4 class="Box_title__kFB9-">Các khóa học đã tham gia</h4>
+                    @if (listCourse != null && listCourse.Any())
+                    {
+                        foreach (var item in listCourse)
+                        {
+                            <div>
+                                <div class="Profile_inner__EK7zA">
+                                    <a class="Profile_thumb__dY3wD" href="/COURSE/details/@item.COURSE.MACOURSE">
+                                        <img src="@item.Hinh" class="Profile_thumb-image__vz1Iq" alt="HTML CSS từ Zero đến Hero">
+                                    </a>
+                                    <div class="info">
+                                        <h3 class="Profile_info-title__nwecV"><a href="/COURSE/details/@item.COURSE.MACOURSE">@item.TENCOURSE</a></h3>
+                                        <p class="Profile_info-desc__JTJYr">@item.chitiet</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                </div>
+            </section>
+        </section>
+    </div>
+</section>
+
+@section upload
+{
+    <script>
+        $(function () {
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click');
+            });
+        });
+        $('#fileUpload').change(function () {
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#fileUpload').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/User/ProcessUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload').attr('src', urlImage);
+                            $('#Anh').val(urlImage);
+                        },
+                        error: function (err) {
+                            alert('Error ', err.statusText);
+                        }
+                    });
+            }
+        });
+    </script>
+    <script>
+        $(function () {
+            $('#btnUpload1').click(function () {
+                $('#fileUpload1').trigger('click');
+            });
+        });
+        $('#fileUpload1').change(function () {
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#fileUpload1').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/User/ProcessUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload1').attr('src', urlImage);
+                            $('#ANHBIA').val(urlImage);
+                        },
+                        error: function (err) {
+                            alert('Error ', err.statusText);
+                        }
+                    });
+            }
+        });
+    </script>
+}
+
+

@@ -1,0 +1,27 @@
+﻿body {
+}
+
+
+/*table, th, td {
+    border: 1px solid black;
+}*/
+button[type='submit'] {
+    background-color: #e9e7e8;
+    color: #fff;
+    cursor: pointer;
+}
+
+    button[type='submit']:hover {
+        background-color: #d1cdcf;
+        color: #fff;
+        cursor: pointer;
+    }
+.table_HP {
+    width: 95%;
+    border: 1px solid black;
+}
+.column_HP {
+    border: 1px solid black;
+    text-align: center;
+}
+

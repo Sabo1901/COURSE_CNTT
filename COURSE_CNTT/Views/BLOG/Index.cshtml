@@ -1,0 +1,121 @@
+﻿@model PagedList.PagedList<COURSE_CNTT.Models.IE.BLOG>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Trang Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<link href="~/css/blog.css" rel="stylesheet" />
+<section class="index-module_grid__1q71E index-module_fullWidth__3X-6x" style="max-width: 2020px;">
+    <div class="DefaultLayout_container__NgAo7">
+        <div class="DefaultLayout_container-top__l5XfT">
+            <h1 class="DefaultLayout_heading__AvBHu">Bài viết nổi bật</h1><div class="MarkdownParser_wrapper__JYN63 DefaultLayout_desc__rr0iE" style="--font-size:1.5rem; --line-height:1.6;">
+                <p>Tổng hợp các bài viết chia sẻ về kinh nghiệm tự học lập trình online và các kỹ thuật lập trình web.</p>
+            </div>
+        </div><div class="container-body">
+            <section class="index-module_row__-AHgh">
+                <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-8__yebHm">
+                    <div class="Blog_leftLayout__Kuc0z">
+                        <div>
+                            @if (Model != null && Model.Any())
+                            {
+
+                                foreach (var item in Model)
+                                {
+                                    TimeSpan ngay = DateTime.Now - item.NGAYTAO;
+                                    <div class="PostItem_wrapper__5s6Lk">
+                                        <div class="PostItem_header__kJhep">
+                                            <div class="PostItem_author__-CiNM">
+                                                <a href="#">
+                                                    <div class="FallbackAvatar_avatar__gmj3S FallbackAvatar_pro__-8mK+" style="--font-size:2.9px;">
+                                                        @if (@item.USER.Anh != null)
+                                                        {
+                                                            <img src="@item.USER.Anh" alt=" GzW">
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="@item.USER.Id">
+
+                                                        }
+                                                        
+                                                    </div>
+                                                </a>
+                                                <a href="/User/details/@item.Id">
+                                                    <span> @item.USER.FullName</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="PostItem_body__Fnfo-">
+                                            <div class="PostItem_info__DZr39">
+                                                <a href="/blog/details/@item.MABLOG">
+                                                    <h2 class="PostItem_title__8lSHm">@item.TIEUDE</h2>
+                                                </a>
+                                                <p class="PostItem_desc__be9G8">@item.ChitietTieuDe </p>
+                                                <div class="PostItem_info__DZr39">
+
+                                                    @if (ngay.Hours < 1)
+                                                    {
+                                                        if (ngay.Seconds >= 0 && ngay.Minutes < 1)
+                                                        {
+                                                            <span>mới tạo bài viết</span>
+                                                        }
+                                                        if(ngay.Minutes >= 1)
+                                                        {
+                                                            <span>@ngay.Minutes phút trước</span>
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+                                                        if (ngay.Hours < 24 && ngay.Days < 1)
+                                                        {
+                                                            <span>@ngay.Hours giờ trước</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@ngay.Days ngày trước</span>
+                                                        }
+                                                    }
+
+                                                    @*<span>@ngay</span>*@
+                                                </div>
+                                            </div>
+                                            <div class="PostItem_thumb__m4iXl">
+                                                <a href="/blog/details/@item.MABLOG">
+                                                    <img src="@item.Hinh" alt="Đánh giá ÉP TÁM với một số trường">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <h4> Không có bài viết nào !!!</h4>
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="col-6"></div>
+                            <div class="col-6" style="text-align:center;">
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </section>
+        </div>
+    </div>
+</section>
+<style>
+    .col-6 li {
+        margin-right: 5px;
+    }
+
+    .col-6 a {
+        background-color: #fff;
+        border-color: #337ab7;
+    }
+</style>
+

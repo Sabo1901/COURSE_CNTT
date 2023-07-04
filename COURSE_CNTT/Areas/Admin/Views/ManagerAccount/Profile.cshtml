@@ -1,0 +1,267 @@
+﻿@model COURSE_CNTT.Models.ApplicationUser
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href="~/css/profileAdmin.css" rel="stylesheet" />
+<style>
+    body:not(.layout-fixed) .main-sidebar .sidebar {
+        overflow-y: visible;
+        /* margin-right: 34px; */
+    }
+    .sidebar {
+        height: calc(100% - (3.5rem + 1px));
+         overflow-x: visible; 
+        overflow-y: initial;
+        padding-bottom: 0;
+        padding-left: .5rem;
+        padding-right: .5rem;
+        padding-top: 0;
+        scrollbar-color: #a9a9a9 transparent;
+        scrollbar-width: none;
+        /* margin-right: 2px; */
+    }
+    .brand-text {
+        font-size: 20px;
+        font-family: Source Sans Pro;
+    }
+    .navbar {
+        position: relative;
+        min-height: 40px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+    }
+
+</style>
+
+@section naviheader{
+    <ul class="navbar-nav" style="flex-direction: row; padding-left: 1rem;">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"> <i class="fas fa-bars"></i> </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home/index" class="nav-link">Trang chủ</a>
+        </li>
+        <span class="divider" style="position: relative; top: 14px; opacity: .35; margin: 0 0.5em; font-weight: 500;">/</span>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="admin/home/Profile" class="nav-link">Thông tin tài khoản</a>
+        </li>
+    </ul>
+}
+
+<!-- Main content -->
+<section class="content">
+    <button type="button" class="btn custom-btn btn-13" data-toggle="modal" data-target="#myModal" style="background-color: #29b6edd6; margin-top: 20px; margin-left: 15px; color: #fff">Chỉnh sửa thông tin</button>
+    <!-- Default box -->
+    
+    <div style="text-align: -webkit-center">
+
+        <div style="width: 600px; background-color:white; border-radius: 10px">
+            <div>
+                <div>
+                    <hr />
+                    <dl class="dl-horizontal" style="text-align:center">
+
+                        <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                            <dd style="margin-left: 0">
+                                <button type="button" class="btn custom-btn btn-13" id="btn_avatar" data-toggle="modal" data-target="#Modal"></button>
+
+                                @if (Model.Anh != null)
+                                {
+                                    <img src="@Model.Anh" alt="Alternate Text" id="avatar" />
+                                }
+                                else
+                                {
+                                    <img src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="Alternate Text" id="avatar" />
+                                }
+
+
+
+                                <div class="modal" id="Modal" role="dialog">
+                                    @*<div class="modal-content" id="modal_content"  >*@
+                                    <!-- Modal content-->
+                                    <div class="modal-body" id="modal_body">
+                                        @if (Model.Anh != null)
+                                        {
+                                            <img src="@Model.Anh" alt="Alternate Text" style="object-fit: cover; width: 605px; margin-left: -90px; " />
+                                        }
+                                        else
+                                        {
+                                            <img src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" style="object-fit: cover; width: 605px; margin-left: -90px; " alt="Alternate Text" />
+                                        }
+                                    </div>
+
+                                    @*</div>*@
+                                </div>
+                            </dd>
+                        </div>
+
+
+
+
+                        <div class="pro_group">
+                            <dt>
+                                <h4 style="float:left"><b>Họ tên:</b></h4>
+                            </dt>
+
+                            <dd>
+                                <h4 style="float:left">@Model.FullName</h4>
+                            </dd>
+                            <dt>
+                                <h4 style="float:left"><b>Chức vụ:</b></h4>
+                            </dt>
+
+                            <dd>
+                                <h4 style="float:left">@Model.Role</h4>
+                            </dd>
+                            <dt>
+                                <h4 style="float:left"><b>Năm sinh:</b></h4>
+                            </dt>
+
+                            <dd>
+                                <h4 style="float:left">@Model.NGAYSINH.ToString("dd/MM/yyyy")</h4>
+                            </dd>
+                            <dt>
+                                <h4 style="float:left"><b>Email:</b></h4>
+                            </dt>
+                            <dd>
+                                <h4 style="float:left">@Model.Email</h4>
+                            </dd>
+                            <dt>
+                                <h4 style="float:left"><b>Số điện thoại:</b></h4>
+                            </dt>
+                            <dd>
+                                <h4 style="float:left">@Model.Phone</h4>
+                            </dd>
+                        </div>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="myModal" role="dialog">
+        @*<div class="modal-header">
+
+            </div>*@
+        <div class="modal-content" style="width: 50%; margin-left: 400px; height: auto; margin-top: 100px;">
+            <h3 class="card-title">Thông tin tài khoản</h3>
+            <div class="modal-body">
+                @using (Html.BeginForm("edituser", "ManagerAccount", new { @id = Model.Id }, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(x => x.Id)
+                    <!-- your steps content here -->
+                    <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+
+
+                        <div class="form-group">
+                            <label>Họ tên</label>
+                            @Html.EditorFor(x => x.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(x => x.FullName, null, new { @class = "text-danger" })
+                        </div>
+
+                        @*<div class="form-group">
+                                <label>Giới tính</label>
+                                @Html.EditorFor(x => x.GIOITINH, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(x => x.GIOITINH, null, new { @class = "text-danger" })
+                            </div>*@
+                        <div class="form-group">
+                            <label>Ngày sinh</label>
+                            @if (Model.NGAYSINH == null)
+                            {
+                                <input type="date" name="NGAYSINH" value=""
+                                       max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            }
+                            else
+                            {
+                                <input type="date" name="NGAYSINH" value="@DateTime.Parse(Model.NGAYSINH.ToString()).ToString("yyyy-MM-dd")"
+                                       max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            }
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Số điện thoại</label>
+                            @Html.EditorFor(x => x.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(x => x.Phone, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email</label>
+                            @Html.EditorFor(x => x.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10" style="margin-left: -16px;">
+                                <strong>Hình</strong>
+                                @Html.EditorFor(x => x.Anh, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(x => x.Anh, "", new { @class = "text-danger" })
+                                <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                                <input type="button" id="btnUpload" value="Tải ảnh" class="btn btn-success" style="margin-top: -60px; margin-left: 575px; background-color: #316293e0;"/>
+                                <br />
+                                <img src="" id="pictureUpload " />
+                            </div>
+                        </div>
+
+                        <div class="modal-footer" style="border-top: 1px solid #f8f9fa; margin-top: 100px;">
+
+                            <button type="submit" class="btn custom-btn btn-1">Cập nhật</button>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+
+
+
+@section upload
+{
+    <script>
+        $(function () {
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click');
+            });
+        });
+        $('#fileUpload').change(function () {
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#fileUpload').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/ManagerAccount/ProcessUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload').attr('src', urlImage);
+                            $('#Anh').val(urlImage);
+                        },
+                        error: function (err) {
+                            alert('Error ', err.statusText);
+                        }
+                    });
+            }
+        });
+    </script>
+}
+

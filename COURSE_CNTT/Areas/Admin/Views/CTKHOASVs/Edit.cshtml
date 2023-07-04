@@ -1,0 +1,141 @@
+﻿@model COURSE_CNTT.Models.IE.CTKHOASV
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@section naviheader{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"> <i class="fas fa-bars"></i> </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/CTKHOASVs" class="nav-link">Danh sách khóa sinh viên</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/CTKHOASVs/Edit" class="nav-link">Chỉnh sửa khóa sinh viên</a>
+        </li>
+    </ul>
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập nhật học phần</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Khóa SV</a></li>
+                    <li class="breadcrumb-item active">Cập nhật</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin Khóa sinh viên</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("Edit", "CTKHOASVs", FormMethod.Post, new { }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.MAKHOASV)
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="tab-content">
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Khóa học</label>
+                                        @*@Html.DropDownListFor(x => x.MACOURSE, ViewBag.MACOURSE as SelectList, Model.COURSE.TENCOURSE, new { @class = "form-control", @placeholder = "Khóa học" })
+                                        @Html.ValidationMessageFor(x => x.MACOURSE, "", new { @class = "text-danger" })*@
+
+                                        @Html.DropDownList("MACOURSE", null, htmlAttributes: new { @class = "form-control" })
+                                         @Html.ValidationMessageFor(model => model.MACOURSE, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Khóa năm học:</label>
+                                        @*@Html.DropDownListFor(x => x.MaHP, ViewBag.MaHP as SelectList, "-Chọn khóa học phần-", new { @class = "form-control", @placeholder = "Khóa học" })
+                                        @Html.ValidationMessageFor(x => x.MaHP, "", new { @class = "text-danger" })*@
+
+                                        @Html.DropDownList("MaHP", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.MaHP, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Tín chỉ</label>
+                                        @Html.TextBoxFor(x => x.Tinchi, new { @class = "form-control", @placeholder = "Tín chỉ" })
+                                        @Html.ValidationMessageFor(x => x.Tinchi, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Học kì</label>
+                                        @Html.TextBoxFor(x => x.Hocki, new { @class = "form-control", @placeholder = "Học kì" })
+                                        @Html.ValidationMessageFor(x => x.Hocki, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Mã HP tiên quyết</label>
+                                        @Html.TextBoxFor(x => x.MaHPHoctruoc, new { @class = "form-control", @placeholder = "Mã khóa học trước" })
+                                    </div>
+                                </div>
+                                <!-- /.tab-content -->
+                            </div><!-- /.card-body -->
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Cập nhật</button>
+                                <a href="/admin/CTKHOASVs" class="btn btn-danger">Quay lại</a>
+                            </div>
+                        </div> <!-- /.card -->
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
+
+@*@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>CTKHOASV</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MACOURSE)
+
+        @Html.HiddenFor(model => model.MAHP)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NAMHOC, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NAMHOC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NAMHOC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@

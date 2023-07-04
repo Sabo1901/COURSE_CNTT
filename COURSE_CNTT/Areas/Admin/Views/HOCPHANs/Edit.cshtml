@@ -1,0 +1,138 @@
+﻿@model COURSE_CNTT.Models.IE.HOCPHAN
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@section naviheader{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"> <i class="fas fa-bars"></i> </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/HOCPHANs" class="nav-link">Danh sách học phần</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/HOCPHANs/Edit" class="nav-link">Chỉnh sửa học phần</a>
+        </li>
+    </ul>
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập nhật khóa của lộ trình</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Học phần</a></li>
+                    <li class="breadcrumb-item active">Cập nhật</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin khóa lộ trình</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("Edit", "HOCPHANs", FormMethod.Post, new { }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.MaHP)
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="tab-content">
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Khóa của lộ trình</label>
+                                        @Html.TextBoxFor(x => x.KhoaHoc, new { @class = "form-control", @placeholder = "Tên học phần" })
+                                        @Html.ValidationMessageFor(x => x.KhoaHoc, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Sơ đồ đào tạo</label>
+                                        @Html.TextBoxFor(x => x.Sodo, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(x => x.Sodo, "", new { @class = "text-danger" })
+                                        <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                                        <input type="button" id="btnUpload" value="Tải lên" class="btn btn-secondary" style="margin-left: 1103px; margin-top: -63px;" />
+                                        <br />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <div class="custom-control custom-checkbox">
+                                                    @Html.CheckBoxFor(x => x.trangthai, new { @class = "custom-control-input", @id = "customCheckbox2", @checked = "checked" })
+                                                    <label for="customCheckbox2" class="custom-control-label">Hiển thị</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.tab-content -->
+                            </div><!-- /.card-body -->
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Cập nhật</button>
+                                <a href="/admin/HOCPHANs" class="btn btn-danger">Quay lại</a>
+                            </div>
+                        </div> <!-- /.card -->
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
+
+@section upload
+{
+    <script>
+        $(function () {
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click');
+            });
+        });
+        $('#fileUpload').change(function () {
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#fileUpload').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/HOCPHANs/ProcessUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload').attr('src', urlImage);
+                            $('#Sodo').val(urlImage);
+                        },
+                        error: function (err) {
+                            alert('Error ', err.statusText);
+                        }
+                    });
+            }
+        });
+    </script>
+}
+

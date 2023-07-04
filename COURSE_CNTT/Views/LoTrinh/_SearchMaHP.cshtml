@@ -1,0 +1,68 @@
+﻿﻿@model IEnumerable<COURSE_CNTT.Models.IE.CTKHOASV>
+@{ 
+    var list = ViewBag.list;
+    var mahp = ViewBag.mahp;
+}
+
+<h5>Bạn có thể tra các học phần tiên quyết hoặc các học phần bạn muốn học</h5>
+<div class="search_mon" style="display: flex;">
+    <p style="font-size: 1.4rem; line-height: 1.6;">Tìm mã học phần:</p>
+    <form id="standard-2" method="get" action="" id="form1" style="margin-left: 10px;">
+        <input type="text" name="mahp" class="search-txt-input" maxlength="100">
+        <!--<button type="submit" form="form1" class="search-button">-->
+            @*<i class="fa fa-search"></i>*@
+        <!--</button>-->
+
+    </form>
+</div>
+   
+<table class="table_HP">
+    <tr>
+        <td class="column_HP"> STT</td>
+        <td class="column_HP"> Mã HP</td>
+        <td class="column_HP"> Tên học phần</td>
+        <td class="column_HP"> Số tín chỉ</td>
+        <td class="column_HP"> Mã HP tiên quyết</td>
+    </tr>
+    @if (Model != null && Model.Any())
+    {
+        var i = 1;
+        foreach (var item in Model)
+        {
+            <tr>
+                <td class="column_HP"> @i</td>
+                <td class="column_HP"> @item.MACOURSE</td>
+                <td class="column_HP"> @item.COURSE.TENCOURSE</td>
+                <td class="column_HP"> @item.Tinchi</td>
+                <td class="column_HP"> @item.MaHPHoctruoc</td>
+            </tr>
+            i++;
+        }
+
+    }
+</table>
+<h5>Nếu bạn bị rớt môn này thì các môn sau đây bạn sẽ không học được(do đó là môn tiên quyết của những môn này) </h5>
+<table style="width:95%; margin-top: 20px" >
+    <tr>
+        <td class="column_HP"> STT</td>
+        <td class="column_HP"> Mã HP</td>
+        <td class="column_HP"> Tên học phần</td>
+        <td class="column_HP"> Số tín chỉ</td>
+        <td class="column_HP"> Mã HP tiên quyết</td>
+    </tr>
+    @if (Model != null && Model.Any())
+    {
+        var i = 1;
+        foreach (var items in list)
+        {
+            <tr>
+                <td class="column_HP"> @i</td>
+                <td class="column_HP"> @items.MACOURSE</td>
+                <td class="column_HP"> @items.COURSE.TENCOURSE</td>
+                <td class="column_HP"> @items.Tinchi</td>
+                <td class="column_HP"> @items.MaHPHoctruoc</td>
+            </tr>
+            i++;
+        }
+    }
+</table>

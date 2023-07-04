@@ -1,0 +1,150 @@
+﻿@model IEnumerable<COURSE_CNTT.Models.IE.CTKHOASV>
+
+@{
+    ViewBag.Title = "Lộ trình";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var hocphan = ViewBag.hocphan;
+    var tinchi = ViewBag.count;
+    var mahocphan = ViewBag.mahocphan;
+    var sodo = ViewBag.sodo;
+    var khoa = ViewBag.khoa;
+
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="~/css/menu.css" rel="stylesheet" />
+<link href="~/css/ChiTiet.css" rel="stylesheet" />
+<link href="~/css/lotrinh.css" rel="stylesheet" />
+<div class="container" style="width: 1355px; margin-top: 40px;">
+    <h1 style="font-weight: 700;">Chương trình đào tạo ngành CNTT trường Đại học Công Nghệ TP.HCM</h1>
+  
+    <div class="content_left" style="width: 40.66667%">
+        @Html.Action("SearchMaHP", "LoTrinh")
+        @*<p style="font-size: 1.4rem; line-height: 1.6;">Chương trình đào tạo Đại học - Ngành Công nghệ thông tin </p>*@
+        <h2 style="font-size: 2rem; font-weight: 700; margin-top: 90px;">Nội dung chương trình đào tạo @khoa:</h2>
+        <p style="font-size: 1.4rem; line-height: 1.6;">Tổng hợp tất cả các học phần lý thuyết và thực hành (không tính các học phần đại cương và các học phần không tích lũy) </p>
+
+        <ul style="padding-left: 0;">
+            <li><b>@hocphan môn</b></li>
+            <li style="font-size: 1.4rem; margin-top: 1px; opacity: .8; padding: 0 8px;">•</li>
+            <li><b>@tinchi tín chỉ</b></li>
+            @*<li style="font-size: 1.4rem; margin-top: 1px; opacity: .8; padding: 0 8px;">•</li>
+            <li>Thời lượng <b>@Model.THOILUONG</b></li>*@
+        </ul>
+        <div style="width: 510px;">
+
+            @if (Model != null && Model.Any())
+            {
+                int hocki = 0;
+                int count = 0;
+                int dem = 0;
+                int tong = 0;
+                int sum = 0;
+                foreach (var item in Model)
+                {
+                    foreach (var itemss in Model)
+                    {
+                        if (itemss.Hocki == item.Hocki)
+                        {
+                            count++;
+                            dem = count;
+                            tong += itemss.Tinchi;
+                            sum = tong;
+
+                        }
+                        else
+                        {
+                            tong = 0;
+                            count = dem - count;
+                            count = 0;
+
+                        }
+                    }
+
+                    if (hocki != item.Hocki)
+                    {
+                        <div class="product-details-tab ">
+                            <div class="nav-item toggle-btn inactiveShowContent">
+                                <div class="nav_chitiet" style="width: 510px;">
+                                    <span class="name-course" style="text-align: center; font-family: sans-serif; text-decoration: none"><strong>Học kì: @item.Hocki</strong></span>
+                                    <p class="timeCoures" style="font-weight: 600;">@dem môn | @sum tín chỉ </p>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="tab-content" style="width: 100%; margin-left: 0;">
+
+                                @foreach (var items in Model)
+                                {
+
+                                    if (items.Hocki == item.Hocki)
+                                    {
+                                        // count++;
+                                        <div class="tab-content-item">
+                                            <a href="/COURSE/Index/@items.MACOURSE" style="color: black;">
+                                                <div class="chitiet_course">
+                                                    <div class="CurriculumOfCourse_lessonName__llwRr" style="float: left; margin-left: -37px;">@items.MACOURSE | @items.COURSE.TENCOURSE </div>
+                                                    <span class="time_course" style="margin-right: -21px;">@items.Tinchi tín chỉ</span>
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    }
+
+                    hocki = item.Hocki;
+                }
+            }
+        </div>
+
+    </div>
+    <div class="content_right" style=" width: 59.33333%;">
+        <img src="~/Content/images/VIDU.png" style="object-fit: cover; width: 100%; " />
+        <img src="@sodo" style="object-fit: cover; width: 100%; margin-top: -75px;" />
+
+    </div>
+</div>
+<input type="hidden" id="searchBox" class="search-txt-input" maxlength="100">
+
+
+
+<script>
+    // Lấy tham chiếu đến nút button
+    var toggleButtons = document.querySelectorAll(".toggle-btn");
+    var contents = document.querySelectorAll(".tab-content")
+    var detailBtns = document.querySelector(".image_course_play")
+    // Gắn sự kiện click cho nút button
+    function showContent(toggleButton, content) {
+        toggleButton.addEventListener("click", function () {
+            // Kiểm tra trạng thái hiện tại của nút
+            if (toggleButton.classList.contains("activeShowContent")) {
+                // Nếu đang active, chuyển sang inactive
+                toggleButton.classList.remove("activeShowContent");
+                toggleButton.classList.add("inactiveShowContent");
+                content.style.display = "none"
+            } else {
+                // Nếu đang inactive, chuyển sang active
+                toggleButton.classList.remove("inactiveShowContent");
+                toggleButton.classList.add("activeShowContent");
+                content.style.display = "block"
+            }
+        });
+    }
+    for (let i = 0; i < toggleButtons.length; i++) {
+        showContent(toggleButtons[i], contents[i]);
+    }
+
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+

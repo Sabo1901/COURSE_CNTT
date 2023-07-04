@@ -1,0 +1,236 @@
+﻿@model COURSE_CNTT.Models.ApplicationUser
+@using COURSE_CNTT.Models.IE
+@using COURSE_CNTT.repository
+@{
+    var list = new List<CTQLCOURSE>();
+    
+    if (Session["MaGH"] != null)
+    {
+        
+        list = QLCOURSEs.dsCOURSEs((int)Session["MaGH"]);
+    }
+
+}
+@{
+    ViewBag.Title = Model.FullName;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/profile.css" rel="stylesheet" />
+<section class="index-module_grid__1q71E index-module_wide__3c1pI" style="max-width: 1100px; margin-top: 67px; margin-left: 135px;">
+    @if (Model.ANHBIA == null)
+    {
+        <div class="Profile_banner__tdS71" src="" style="background-image: url(https://i.pinimg.com/originals/03/dc/16/03dc16c3d2540ccb6beb758631f4b252.jpg); position: relative; object-fit: cover">
+            <div class="Profile_user__iDkf1">
+                <div class="Profile_user-avatar__y8fSV">
+                    <div class="FallbackAvatar_avatar__gmj3S" style="font-size:17.2px;">
+                        @if (@Model.Anh == null)
+                        {
+                            <img class="avatar" src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="Null">
+                        }
+                        else
+                        {
+                            <img class="avatar" src="@Model.Anh" alt="Null">
+                        }
+                    </div>
+                </div>
+                <div class="Profile_user-name__xIJlY"><span>@Model.FullName</span></div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="Profile_banner__tdS71" src="" style="background-image: url(@Model.ANHBIA); position: relative;">
+            <div class="Profile_user__iDkf1">
+                <div class="Profile_user-avatar__y8fSV">
+                    <div class="FallbackAvatar_avatar__gmj3S" style="font-size:17.2px;">
+                        @if (@Model.Anh == null)
+                        {
+                            <img class="avatar" src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="Null">
+                        }
+                        else
+                        {
+                            <img class="avatar" src="@Model.Anh" alt="Null">
+                        }
+                    </div>
+                </div>
+                <div class="Profile_user-name__xIJlY"><span>@Model.FullName</span></div>
+            </div>
+        </div>
+    }
+
+    <div class="Profile_container__BVoU6">
+        <section class="index-module_row__-AHgh">
+            <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-5__2UHWy">
+                <div class="content-left">
+                    <div class="Box_wrapper__uAKHJ">
+                        <h3 class="Box_title__kFB9-" style="margin-bottom: 30px; margin-left: 123px; font-size: 2.2rem; ">Thông tin tài khoản</h3>
+
+                        <div>
+                            @using (Html.BeginForm("edit", "User", new { @id = Model.Id }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(x => x.Id)
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Họ tên:</label>
+                                    @Html.EditorFor(x => x.FullName, new { htmlAttributes = new { @class = "InputField_fieldContentInput__lO21W" } })
+                                    @Html.ValidationMessageFor(x => x.FullName, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group" style="margin-bottom: 26px;">
+                                    <label>Ngày sinh</label>
+                                    @if (Model.NGAYSINH == null)
+                                    {
+                                        <input type="date" name="NGAYSINH" value="@DateTime.Now.ToString("yyyy-MM-dd")"
+                                               max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                    }
+                                    else
+                                    {
+                                        <input type="date" name="NGAYSINH" value="@DateTime.Parse(Model.NGAYSINH.ToString()).ToString("yyyy-MM-dd")"
+                                               max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                    }
+                                </div>
+                              @*  <div class="form-group">
+                                    <label for="exampleInputEmail1">Email:</label>
+                                    @Html.EditorFor(x => x.Email, new { htmlAttributes = new { @class = "InputField_fieldContentInput__lO21W" } })
+                                    @Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger" })
+                                </div>*@
+                              
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Số điện thoại:</label>
+                                    @Html.EditorFor(x => x.Phone, new { htmlAttributes = new { @class = "InputField_fieldContentInput__lO21W" } })
+                                    @Html.ValidationMessageFor(x => x.Phone, null, new { @class = "text-danger" })
+                                </div>
+
+
+                                @Html.EditorFor(x => x.Anh, new { htmlAttributes = new { @class = "form-control", @style = "display:none;" } })
+                                @Html.ValidationMessageFor(x => x.Anh, "", new { @class = "text-danger" })
+                                <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                                <input type="button" id="btnUpload" value="Tải ảnh" class="btn custom-btn btn-16" style=" margin-top: -727px; z-index: 10; border-radius: 50%; height: 11.1em; object-fit: cover; width: 11.1em; margin-left: 10px;" />
+                                <br />
+                                <img src="" id="pictureUpload " />
+
+                                @Html.EditorFor(x => x.ANHBIA, new { htmlAttributes = new { @class = "form-control", @style = "display:none;" } })
+                                @Html.ValidationMessageFor(x => x.ANHBIA, "", new { @class = "text-danger" })
+                                <input type="file" name="fileUpload1" id="fileUpload1" accept="image/*" style="display:none;" />
+                                <div class="FallbackBackground_btn-change-cover__NNmPv" id="btnUpload1">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" class="svg-inline--fa fa-camera FallbackBackground_icon-fix__xV4i5 FallbackBackground_icon__EaUPW" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path fill="currentColor" d="M194.6 32H317.4C338.1 32 356.4 45.22 362.9 64.82L373.3 96H448C483.3 96 512 124.7 512 160V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V160C0 124.7 28.65 96 64 96H138.7L149.1 64.82C155.6 45.22 173.9 32 194.6 32H194.6zM256 384C309 384 352 341 352 288C352 234.1 309 192 256 192C202.1 192 160 234.1 160 288C160 341 202.1 384 256 384z"></path>
+                                    </svg>Chỉnh sửa ảnh bìa
+                                </div>
+                                @*<input type="button" id="btnUpload1" value="Tải ảnh" class="btn btn-success" />*@
+                                <br />
+                                <img src="" id="pictureUpload1" style="display: none; " />
+                                <button type="submit" class="custom-btn btn-1" style="margin-top: -14px;">Cập nhật</button>
+                                @*<div class="InputField_fieldContent__iWttQ">
+                <h3 class="InputField_fieldContentLabel__wJO4a">Họ tên</h3>
+                <div>
+                    <div class="InputField_fieldContentEdit__KYEiF">
+                        <input type="text" name="full_name" class="InputField_fieldContentInput__lO21W" maxlength="50" placeholder="Thêm tên của bạn" disabled="" value="1118_Nguyễn Đình Hiếu">
+                        <div class="InputField_description__unJBo">
+                            <p>Tên của bạn xuất hiện trên trang cá nhân và bên cạnh các bình luận của bạn.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+                            }
+                        </div>
+                    </div>
+                    <div class="Box_wrapper__uAKHJ">
+                        <h4 class="Box_title__kFB9-">Hoạt động gần đây</h4>
+                        <div>
+                            <div class="Profile_no-result__O7P-W">Chưa có hoạt động gần đây</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-7__kRbS-">
+                <div class="Box_wrapper__uAKHJ">
+                    <h4 class="Box_title__kFB9-">Các khóa học đã tham gia</h4>
+                    @if (list != null && list.Any())
+                    {
+                        foreach (var item in list)
+                        {
+                            <div>
+                                <div class="Profile_inner__EK7zA">
+                                    <a class="Profile_thumb__dY3wD" href="/COURSE/details/@item.COURSE.MACOURSE">
+                                        <img src="@item.Hinh" class="Profile_thumb-image__vz1Iq" alt="HTML CSS từ Zero đến Hero">
+                                    </a>
+                                    <div class="info">
+                                        <h3 class="Profile_info-title__nwecV"><a href="/COURSE/details/@item.COURSE.MACOURSE">@item.TENCOURSE</a></h3>
+                                        <p class="Profile_info-desc__JTJYr">@item.chitiet</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </section>
+        </section>
+    </div>
+</section>
+
+@section upload
+{
+    <script>
+        $(function () {
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click');
+            });
+        });
+        $('#fileUpload').change(function () {
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#fileUpload').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/User/ProcessUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload').attr('src', urlImage);
+                            $('#Anh').val(urlImage);
+                        },
+                        error: function (err) {
+                            alert('Error ', err.statusText);
+                        }
+                    });
+            }
+        });
+    </script>
+    <script>
+        $(function () {
+            $('#btnUpload1').click(function () {
+                $('#fileUpload1').trigger('click');
+            });
+        });
+        $('#fileUpload1').change(function () {
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#fileUpload1').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/User/ProcessUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload1').attr('src', urlImage);
+                            $('#ANHBIA').val(urlImage);
+                        },
+                        error: function (err) {
+                            alert('Error ', err.statusText);
+                        }
+                    });
+            }
+        });
+    </script>
+}

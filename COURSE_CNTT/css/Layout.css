@@ -1,0 +1,320 @@
+﻿body {
+  
+}
+.NavBar_myLearn__vCvEB {
+    background-color: transparent;
+    color: #333;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-right: 16px;
+    padding: 8px;
+    border: none;
+}
+button {
+    text-decoration: none
+}
+.NavBar_logoHeading__bs7MP {
+    color: #000;
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin-left: 16px;
+}
+.NavBar_logo__Rgo-5 a {
+    display: flex;
+}
+.NavBar_logo__Rgo-5 {
+    align-items: center;
+    display: flex;
+}
+.svg-inline--fa {
+    display: inline-block;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
+    .NavBar_wrapper__4m3K5 {
+    --height: 66px;
+    align-items: center;
+    background-color: #fff;
+    border-bottom: 1px solid #e8ebed;
+    display: flex;
+    font-size: 1.4rem;
+    height: var(--height);
+    left: 0;
+    padding: 0 28px;
+    position: -webkit-sticky;
+    position: sticky;
+    right: 0;
+    top: 0;
+    z-index: 20;
+}
+.Sidebar_wrapper__kUJFm {
+    --width: 96px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    left: 0;
+    padding: 0 8px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 74px;
+    width: var(--width);
+    z-index: 8;
+}
+.Sidebar_itemBtn__Q78b7 svg {
+    font-size: 1.8rem;
+}
+.App_withSidebar__8lwIi {
+    display: flex;
+
+}
+.NavBar_actionBtn__tzSZd {
+    padding: 8px;
+    position: relative;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.FallbackAvatar_avatar__gmj3S {
+    background: transparent;
+    border-radius: 50%;
+    font-size: 3.2px;
+}
+.FallbackAvatar_avatar__gmj3S img:not(.FallbackAvatar_crown__BnONf) {
+    border-radius: 50%;
+    height: 9em;
+    object-fit: cover;
+    width: 9em;
+}
+.Tippy-module_wrapper__1s5m5 {
+    animation: Tippy-module_fadeIn__2LeID .3s ease;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 -4px 32px rgba(0,0,0,.2);
+    color: #1d2129;
+    margin: 0;
+    overflow: hidden;
+    padding-left: 0;
+    transition: all .3s ease-in-out;
+    will-change: opacity,transform;
+}
+.UserMenu_avatarWrapper__9ABYL {
+    margin: 10px 0;
+    position: relative;
+}
+.UserMenu_info__UqeZT {
+    margin-left: 12px;
+}
+ul {
+    list-style-type: none;
+}
+a:hover {
+    color: #1668fc;
+    text-decoration: none;
+}
+.UserMenu_name__L18s- {
+    color: #292929;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+.UserMenu_username__7qkRU {
+    color: #757575;
+    font-size: 1.4rem;
+    margin-top: 4px;
+}
+.UserMenu_wrapper__kevhj {
+    min-width: 230px;
+    padding: 8px 24px !important;
+}
+.UserMenu_list__FI9-C {
+    margin: 0;
+    padding-left: 0;
+}
+    .UserMenu_list__FI9-C .UserMenu_affiliate__jtaaL, .UserMenu_list__FI9-C .UserMenu_item__NXwf1 {
+        color: #666;
+        cursor: pointer;
+        display: block;
+        font-size: 1.4rem;
+        padding: 10px 0;
+    }
+.Search_input__GnMba {
+    border: none;
+    caret-color: #444;
+    flex: 1 1;
+    height: 100%;
+    outline: none;
+    padding: 0 4px;
+}
+.d-flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.Search_wrapper__Bwvae {
+    border: 2px solid #e8e8e8;
+    border-radius: 20px;
+    flex: 1 1;
+    height: 40px;
+    padding: 0 16px 0 8px;
+    transition: border-color .2s ease-in-out;
+    width: 420px;
+}
+.NavBar_actions__nSNzo, .NavBar_body__4Yhth, .NavBar_logo__Rgo-5 {
+    flex: 1 1;
+}
+    .NavBar_logo__Rgo-5 img {
+        border-radius: 8px;
+        flex-shrink: 0;
+        height: 38px;
+        object-fit: contain;
+        width: 38px;
+    }
+.NavBar_actions__nSNzo {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+}
+.Sidebar_itemBtn__Q78b7 i {
+    color: #0c0606;
+    font-size: 1.8rem;
+}
+.NavBar_loginBtn__5DxZL {
+    background-color: #1e80e3;
+    border-radius: 999px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 9px 20px;
+}
+.Search_searchIcon__-23JY {
+    background-color: #fff;
+    background-image: url(https://fullstack.edu.vn/static/media/search.9bd3926522ea0937310c.svg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 18px;
+    border-radius: 50%;
+    height: 32px;
+    opacity: .7;
+    transition: opacity .2s ease-in-out;
+    width: 30px;
+}
+.CreateButton_wrapper__Bb6o6 {
+    align-items: center;
+    background-color: #1473e6;
+    border-color: #1473e6;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    height: 44px;
+    justify-content: center;
+    margin: 8px 0 2px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 44px;
+    margin-left: 15px;
+}
+.NavBar_avatar__OG7ib {
+    cursor: pointer;
+}
+.info_user{
+    display: none;
+}
+.manageCOURSEs {
+    display: none;
+}
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: -238px;
+    margin-left: -20px;
+}
+.UserMenu_user__GXFLp {
+    align-items: center;
+    display: flex;
+}
+.MyCourses_wrapper__5LBCf {
+    min-width: 380px;
+    padding-bottom: 12px;
+}
+.MyCourses_header__3XJPO {
+    align-items: center;
+    display: flex;
+    padding: 14px 20px 16px;
+}
+.MyCourses_heading__88N5H {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 600;
+}
+.MyCourses_view-all-btn__ZpnIF {
+    border-radius: 4px;
+    color: #1953ea;
+    font-size: 1.4rem;
+    margin-left: auto;
+    padding: 8px;
+}
+.MyCourses_content__YVcRz {
+    -ms-scroll-chaining: none;
+    max-height: 68vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+.MyCourses_course-item__QZjzt {
+    border-radius: 10px;
+    display: flex;
+    margin: 0 8px;
+    padding: 8px 12px;
+    transition: background-color .3s;
+}
+.MyCourses_course-thumb__eJEMK {
+    background-color: #ebebeb;
+    border-radius: 8px;
+    display: block;
+    line-height: 67px;
+    min-height: 67px;
+    text-align: center;
+    width: 120px;
+}
+img {
+    border-style: none;
+}
+.MyCourses_course-info__lBFc3 {
+    flex: 1 1;
+    margin-left: 12px;
+}
+.MyCourses_course-title__cxlMF {
+    font-size: 1.4rem;
+    margin: 6px 0 0;
+    font-weight: 600;
+}
+.MyCourses_course-title__cxlMF a {
+    color: #333;
+}
+.MyCourses_last-completed__Ar6Yh {
+    color: #666;
+    font-size: 1.2rem;
+    margin: 4px 0 0;
+}
+.MyCourses_course-item__QZjzt.MyCourses_active__ZFHpO, .MyCourses_course-item__QZjzt:hover {
+    background-color: rgba(22,24,35,.05);
+}
+.btn-outline-light {
+    color: #FFFBF2;
+    border-color: #FFFBF2;
+}
+.NavBar_action-icon__l9MxX {
+    color: #707070;
+    font-size: 2rem;
+}
+.name-foot {
+    font-family: "Roboto",sans-serif;
+    letter-spacing: 3px;
+    font-size: 1.8rem;
+    line-height: 1.2;
+    font-weight: 600 !important;
+}

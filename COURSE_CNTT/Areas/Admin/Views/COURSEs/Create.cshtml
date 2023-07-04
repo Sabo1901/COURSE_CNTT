@@ -1,0 +1,194 @@
+﻿@model COURSE_CNTT.Models.IE.COURSE
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section naviheader{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"> <i class="fas fa-bars"></i> </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home/index" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/COURSEs" class="nav-link">Danh sách khóa học</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/COURSEs/Create" class="nav-link">Thêm khóa học mới</a>
+        </li>
+    </ul>
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm mới Khóa học</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Tin tức</a></li>
+                    <li class="breadcrumb-item active">Thêm mới</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Mã khóa</label>
+                                    @Html.TextBoxFor(x => x.MACOURSE, new { @class = "form-control", @placeholder = "Mã khóa" })
+                                    @Html.ValidationMessageFor(x => x.MACOURSE, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Tên khóa học</label>
+                                    @Html.TextBoxFor(x => x.TENCOURSE, new { @class = "form-control", @placeholder = "Tên khóa học" })
+                                    @Html.ValidationMessageFor(x => x.TENCOURSE, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Hình</label>
+                                    @Html.TextBoxFor(x => x.HINH, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.HINH, "", new { @class = "text-danger" })
+                                    <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                                    <input type="button" id="btnUpload" value="Tải lên" class="btn btn-secondary" style="margin-left: 1103px; margin-top: -63px;" />
+                                    <br />
+                                </div>
+                                @*<div class="form-group">
+                                    <label for="exampleInputFile">Ảnh đại diện</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            @Html.TextBoxFor(x => x.HINH, new { @id = "txtImage", @class = "form-control" })
+                                        </div>
+                                        <div class="input-group-append">
+                                            <input type="button" value="Tải ảnh" onclick="BrowseServer('txtImage');" />
+                                        </div>
+                                    </div>
+                                </div>*@
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Video giới thiệu khóa học  (Thay watch?v= thành embed/ ở link youtube + '?showinfo=0&autoplay=1&controls=1')</label>
+                                    @Html.TextAreaFor(x => x.video, new { @class = "form-control", @placeholder = "Video giới thiệu khóa học" })
+                                    @Html.ValidationMessageFor(x => x.video, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Mô tả</label>
+                                    @Html.TextAreaFor(x => x.Mota, new { @class = "form-control", @id = "txtMota" })
+                                    @Html.ValidationMessageFor(x => x.Mota, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Chi tiết sản phẩm</label>
+                                    @Html.TextAreaFor(x => x.Chitiet, new { @class = "form-control", @placeholder = "Chi tiết sản phẩm" })
+                                    @Html.ValidationMessageFor(x => x.Chitiet, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Yêu cầu</label>
+                                    @Html.TextAreaFor(x => x.Yeucau, new { @class = "form-control", @id = "txtDetail" })
+                                    @Html.ValidationMessageFor(x => x.Yeucau, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                @Html.CheckBoxFor(x => x.hienthi, new { @class = "custom-control-input", @id = "customCheckbox2", @checked = "checked" })
+                                                <label for="customCheckbox2" class="custom-control-label">Hiển thị</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Thêm mới</button>
+                                <a href="/admin/Courses" class="btn btn-danger">Quay lại</a>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+</section>
+<!-- /.content -->
+
+
+@section upload
+{
+    <script>
+        $(function () {
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click');
+            });
+        });
+        $('#fileUpload').change(function () {
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#fileUpload').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/Courses/ProcessUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload').attr('src', urlImage);
+                            $('#HINH').val(urlImage);
+                        },
+                        error: function (err) {
+                            alert('Error ', err.statusText);
+                        }
+                    });
+            }
+        });
+    </script>
+}
+
+@section  scripts{
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('txtDetail', {
+                customConfig: '/content/ckeditor/config.js',
+                extraAllowedContent: 'span',
+            });
+        });
+        $(document).ready(function () {
+            CKEDITOR.replace('txtMota', {
+                customConfig: '/content/ckeditor/config.js',
+                extraAllowedContent: 'span',
+            });
+        });
+        function BrowseServer(field) {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                document.getElementById(field).value = fileUrl;
+            };
+            finder.popup();
+        }
+
+    </script>
+}
+
+

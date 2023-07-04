@@ -1,0 +1,107 @@
+﻿@model COURSE_CNTT.Models.IE.BLOG
+@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/blog.css" rel="stylesheet" />
+<!-- Default box -->
+<div class="NewPost_wrapper__QUJ12" style="margin-top: 24px; padding: 0px 32px; width: 1395px; display: flex">
+    <div class="NewPost__item" style="width: 100%; display: flex;">
+
+
+        @using (Html.BeginForm("Create", "BLOG"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+           
+            <div class="NewPost__item_left" style="width:60%;">
+
+
+                @Html.TextAreaFor(x => x.TIEUDE, new { @class = "ContentEditable_wrapper__YxeRy NewPost_title-input__d-X6s", style = "border: none; line-height: 1.4;  outline: none;  color: rgb(41, 41, 41);   font-size: 3.2rem;   font-weight: 500;   height: 100px;  width: 95%;     border-bottom: 1px solid rgba(0,0,0,.15);", @placeholder = "Tiêu đề" })
+                @Html.ValidationMessageFor(x => x.TIEUDE, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(x => x.chitiet, new { @class = "ContentEditable_wrapper__YxeRy NewPost_title-input__d-X6s", style = " font-family: inherit; font-size: 1.5rem!important; height: 600px; border: none; line-height: 1.4;  outline: none; border-bottom: 1px solid rgba(0,0,0,.15); color: rgb(41, 41, 41);   font-size: 3.2rem; background: #fff;   width: 95%;", @placeholder = "Tiêu đề", @id = "txtDetail"})
+                @Html.ValidationMessageFor(x => x.chitiet, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="NewPost__item_right" style="width:40%; margin-left: 20px">
+                @*@using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                <div>
+                    @Html.EditorFor(x => x.Hinh, new { htmlAttributes = new { @class = "form-control", @style = "display: none;" } })
+                    @Html.ValidationMessageFor(x => x.Hinh, "", new { @class = "text-danger" })
+                    <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                    <img src="~/Content/images/istockphoto-926993450-612x612.jpg.png" alt="Thêm ảnh đại diện cho bài viết" id="pictureUpload" style="width: 375px; height: 250px; border-radius: 6px; object-fit: cover;" />
+                    <input type="button" id="btnUpload" value="Lấy hình" class="custom-btn btn-13" />
+                </div>
+                <br />
+                <div>
+                    @Html.TextAreaFor(x => x.ChitietTieuDe, new { @class = "ContentEditable_wrapper__YxeRy NewPost_title-input__d-X6s", @style = "border: none; border-bottom: 1px solid rgba(0,0,0,.15);   margin: 1.6rem 0 4px;  padding-bottom: 4px; line-height: 1.4; margin-top: 60px;  outline: none;  color: rgb(41, 41, 41);   font-size: 1.5rem;  word-break: break-word;  height: 90px;  width: 95%;", @placeholder = "Mô tả khi tin được hiển thị" })
+                    @Html.ValidationMessageFor(x => x.ChitietTieuDe, "", new { @class = "text-danger" })
+
+                </div>
+
+                @section upload
+{
+                    <script>
+                        $(function () {
+                            $('#btnUpload').click(function () {
+                                $('#fileUpload').trigger('click');
+                            });
+                        });
+                        $('#fileUpload').change(function () {
+                            if (window.FormData !== undefined) {
+                                var fileUpload = $('#fileUpload').get(0);
+                                var files = fileUpload.files;
+                                var formData = new FormData();
+                                formData.append('file', files[0]);
+                                $.ajax(
+                                    {
+                                        type: 'POST',
+                                        url: '/BLOG/ProcessUpload',
+                                        contentType: false,
+                                        processData: false,
+                                        data: formData,
+                                        success: function (urlImage) {
+                                            $('#pictureUpload').attr('src', urlImage);
+                                            $('#Hinh').val(urlImage);
+                                        },
+                                        error: function (err) {
+                                            alert('Error ', err.statusText);
+                                        }
+                                    });
+                            }
+                        });
+                    </script>
+                }
+
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn custom-btn btn-1">Đăng bài</button>
+            </div>
+        }
+    </div>
+</div>
+@section  scripts{
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('txtDetail', {
+                customConfig: '/content/ckeditor/config.js',
+                extraAllowedContent: 'span',
+            });
+        });
+
+        function BrowseServer(field) {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                document.getElementById(field).value = fileUrl;
+            };
+            finder.popup();
+        }
+
+    </script>
+}

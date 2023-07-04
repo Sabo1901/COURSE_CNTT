@@ -1,0 +1,167 @@
+﻿@model COURSE_CNTT.Models.ApplicationUser
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@section naviheader{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"> <i class="fas fa-bars"></i> </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/index" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/ManagerAccount" class="nav-link">Danh sách tài khoản</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/ManagerAccount/Edit" class="nav-link">Chỉnh sửa tài khoản</a>
+        </li>
+    </ul>
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập nhật thông tin</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Thông tin</a></li>
+                    <li class="breadcrumb-item active">Cập nhật</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin tài khoản</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("Edit", "ManagerAccount", FormMethod.Post, new { }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Id)
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Họ tên:</label>
+                                        @Html.TextBoxFor(x => x.FullName, new { @class = "form-control", @placeholder = "Họ tên" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Phân quyền:</label>
+                                        @*@Html.DropDownList("Roles", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })*@
+                                        @Html.DropDownListFor(x => x.Role, ViewBag.Role as SelectList, Model.Role, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            <strong>Hình</strong>
+                                            @Html.EditorFor(x => x.Anh, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(x => x.Anh, "", new { @class = "text-danger" })
+                                            <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+                                            <input type="button" id="btnUpload" value="Tải lên" class="btn btn-success" />
+                                            <br />
+                                            @*<img src="" id="pictureUpload" style="width: 200px; height: 200px; margin-left: 50%; border-radius: 50%; -moz-border-radius: 50%; -webkit-border-radius: 50%; "/>*@
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email:</label>
+                                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email" })
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Số điện thoại:</label>
+                                        @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", @placeholder = "Số điện thoại" })
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ngày sinh</label>
+                                        @if (Model.NGAYSINH == null)
+                                        {
+                                            <input type="date" name="NGAYSINH" value=""
+                                                   max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                        }
+                                        else
+                                        {
+                                            <input type="date" name="NGAYSINH" value="@DateTime.Parse(Model.NGAYSINH.ToString()).ToString("yyyy-MM-dd")"
+                                                   max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <div class="custom-control custom-checkbox">
+                                                    @Html.CheckBoxFor(x => x.hienthi, new { @class = "custom-control-input", @id = "customCheckbox2", @checked = "checked" })
+                                                    <label for="customCheckbox2" class="custom-control-label">Trạng thái</label>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- /.tab-content -->
+                            </div><!-- /.card-body -->
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Lưu Lại</button>
+                                <a href="/admin/ManagerAccount/listadmin" class="btn btn-danger">Quay lại</a>
+                            </div>
+                        </div> <!-- /.card -->
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+@section upload
+{
+    <script>
+        $(function () {
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click');
+            });
+        });
+        $('#fileUpload').change(function () {
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#fileUpload').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                $.ajax(
+                    {
+                        type: 'POST',
+                        url: '/Admin/ManagerAccount/ProcessUpload',
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (urlImage) {
+                            $('#pictureUpload').attr('src', urlImage);
+                            $('#Anh').val(urlImage);
+                        },
+                        error: function (err) {
+                            alert('Error ', err.statusText);
+                        }
+                    });
+            }
+        });
+    </script>
+}

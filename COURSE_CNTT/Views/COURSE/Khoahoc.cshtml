@@ -1,0 +1,58 @@
+﻿@model IEnumerable<COURSE_CNTT.Models.IE.COURSE>
+@{
+    ViewBag.Title = "Trang khóa học";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/menu.css" rel="stylesheet" />
+<style>
+    .App_withSidebarContent__o4VlQ{
+        width: 100%;
+    }
+    .container body-content {
+        width: 100%;
+    }
+</style>
+
+<div class="Home_wrapper__53Los" style=" width: 115%; margin-left: -100px;">
+    <div>
+        <h1 style="font-size: 34px; font-weight: 700; color: #000000; margin-bottom: 10px;">Tất cả khóa học</h1>
+        <p>Tất cả khóa học đều miễn phí được tổng hợp từ nhiều nguồn trên Internet!</p>
+    </div>
+    <div class="ScrollList_vertical__hG0sb">
+        <div style="margin-top: -10px">
+            @*<p class="ScrollList_sub-heading__4Ymiv" style="margin-bottom: -15px; "><strong>100.100+</strong> người đã học</p>*@
+            <div class="ScrollList_heading-wrap__58LQx" style="align-items: baseline; display: flex;">
+                <div class="ScrollList_heading__BYEXH">
+                    <h1 style="font-size: 24px; font-weight: 700; color: #000000; margin-bottom: 10px;">Khóa học miễn phí</h1>
+                </div>
+                <a href="/lotrinh" class="ScrollList_view-all__MTYc1" style="text-decoration: none;">Xem lộ trình <i class="fa fa-chevron-right" aria-hidden="true" style="font-size: 1.2rem; margin-left: 4px; position: relative; top: -1px; transition: .3s ease;"></i></a>
+            </div>
+        </div>
+        <div class="ScrollList_body__iMN-l">
+            <section class="index-module_row__-AHgh" style="margin-left: -12px; margin-right: -12px; display: flex; flex-wrap: wrap;">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-4__30Uoi index-module_l-3__MjWvb">
+                            <div class="CommonItem_wrapper__1FbHi Home_courseItem__aIeZ4" style="padding-bottom: 23px;">
+                                <a class="CommonItem_thumb__ew8Jj CommonItem_has-link__VLLrX" href="@Url.Action("Index","COURSE",new { @id = item.MACOURSE })" style="background-image: url('@item.HINH')">
+                                    <button class="Button_btn__RW1e2 CommonItem_cta-btn__OK+oX"> Xem khóa học </button>
+                                </a>
+                                <h3 class="CommonItem_title__EpYrE" style="font-weight: 600;">
+                                    <a href="#">@item.TENCOURSE</a>
+                                </h3>
+                                <div class="CourseItem_students-count__92kIg">
+                                    <i class="fa fa-users" aria-hidden="true" style="display: var(--fa-display, inline-block); height: 1em; overflow: visible; vertical-align: -0.125em;"></i>
+                                    <span> @item.ViewCount</span>
+                                </div>
+                            </div>
+                        </section>
+                    }
+                }
+
+            </section>
+        </div>
+    
+    </div>
+</div>

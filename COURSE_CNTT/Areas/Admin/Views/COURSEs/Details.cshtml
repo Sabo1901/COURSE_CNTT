@@ -1,0 +1,115 @@
+﻿@model COURSE_CNTT.Models.IE.COURSE
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>COURSE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LOAICOURSE.TENLOAI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LOAICOURSE.TENLOAI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TENCOURSE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TENCOURSE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ViewCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ViewCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TONGVIDEO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TONGVIDEO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TONGCHUONG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TONGCHUONG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.THOILUONG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.THOILUONG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mota)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mota)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Chitiet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Chitiet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Yeucau)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Yeucau)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.video)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.video)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hienthi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hienthi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HINH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HINH)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MACOURSE }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,149 @@
+﻿@model IEnumerable<COURSE_CNTT.Models.IE.BLOG>
+@{
+    ViewBag.Title = "Bài viết của tôi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/blog.css" rel="stylesheet" />
+<section class="index-module_grid__1q71E index-module_fullWidth__3X-6x" style="max-width: 2020px;">
+    <div class="DefaultLayout_container__NgAo7">
+        <div class="DefaultLayout_container-top__l5XfT">
+            <h1 class="DefaultLayout_heading__AvBHu">Bài viết của tôi</h1>
+        <div class="MarkdownParser_wrapper__JYN63 DefaultLayout_desc__rr0iE" style="--font-size:1.5rem; --line-height:1.6;"></div>
+        </div>
+        <div class="container-body">
+            <section class="index-module_row__-AHgh">
+                <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-8__yebHm">
+                    <div class="Blog_leftLayout__Kuc0z">
+                        <div>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <div class="PostItem_wrapper__5s6Lk">
+                                        <div class="PostItem_header__kJhep">
+                                            <div class="PostItem_author__-CiNM">
+                                                <a href="#">
+                                                    <div class="FallbackAvatar_avatar__gmj3S FallbackAvatar_pro__-8mK+" style="--font-size:2.9px;">
+                                                        <img src="@item.USER.Anh" alt=" GzW">
+                                                    </div>
+                                                </a>
+                                                <a href="/Blog/Details/@item.MABLOG"><span> @item.USER.FullName</span></a>
+                                            </div>
+                                            <div class="PostItem_actions__eWV5m">
+                                                <div class="PostItem_optionBtn__h8ALw inactiveShowContent">
+                                                    <svg onclick="myFunction()" aria-hidden="true" style="float: right;" focusable="false" data-prefix="fas" data-icon="ellipsis" class="svg-inline--fa fa-ellipsis dropbtn" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                                        <path fill="currentColor" d="M120 256C120 286.9 94.93 312 64 312C33.07 312 8 286.9 8 256C8 225.1 33.07 200 64 200C94.93 200 120 225.1 120 256zM280 256C280 286.9 254.9 312 224 312C193.1 312 168 286.9 168 256C168 225.1 193.1 200 224 200C254.9 200 280 225.1 280 256zM328 256C328 225.1 353.1 200 384 200C414.9 200 440 225.1 440 256C440 286.9 414.9 312 384 312C353.1 312 328 286.9 328 256z"></path>
+                                                    </svg>
+                                                </div>
+                                                <div id="myDropdown" class="dropdown-content" style="margin-top: 12px;">
+                                                    <ul class="Tippy-module_wrapper__1s5m5 Tippy-module_options__37VQJ" style="min-width: 200px; ">
+                                                        <a href="/BLOG/edit/@item.MABLOG">
+                                                        <li> Chỉnh sửa</li></a>
+                                                        <a href="" data-id="@item.MABLOG" class="btnDelete">
+                                                        <li> Xóa</li></a>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="PostItem_body__Fnfo-">
+                                            <div class="PostItem_info__DZr39">
+                                                <a href="/blog/danh-gia-ep-tam-voi-mot-so-truong.html"><h2 class="PostItem_title__8lSHm">@item.TIEUDE</h2></a><p class="PostItem_desc__be9G8">@item.ChitietTieuDe </p><div class="PostItem_info__DZr39"><span>một ngày trước</span></div>
+                                            </div><div class="PostItem_thumb__m4iXl"><a href="/blog/danh-gia-ep-tam-voi-mot-so-truong.html"><img src="@item.Hinh" alt="Đánh giá ÉP TÁM với một số trường"></a></div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <h4> Không có bài viết nào !!!</h4>
+                            }
+                        </div>
+                    </div>
+                </section>
+
+            </section>
+        </div>
+    </div>
+</section>
+
+<script>
+    var toggleButtons = document.querySelectorAll(".PostItem_optionBtn__h8ALw");
+    var contents = document.querySelectorAll(".dropdown-content")
+    // Gắn sự kiện click cho nút button
+    function showContent(toggleButton, content) {
+        toggleButton.addEventListener("click", function () {
+            // Kiểm tra trạng thái hiện tại của nút
+            if (toggleButton.classList.contains("activeShowContent")) {
+                // Nếu đang active, chuyển sang inactive
+                toggleButton.classList.remove("activeShowContent");
+                toggleButton.classList.add("inactiveShowContent");
+                content.style.display = "none"
+            } else {
+                // Nếu đang inactive, chuyển sang active
+                toggleButton.classList.remove("inactiveShowContent");
+                toggleButton.classList.add("activeShowContent");
+                content.style.display = "block"
+            }
+        });
+    }
+    for (let i = 0; i < toggleButtons.length; i++) {
+        showContent(toggleButtons[i], contents[i]);
+    }
+
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
+</script>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data("id");
+                var conf = confirm('Bạn có chắc muốn xóa bài viết này không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '/BLOG/delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                $(id).remove();
+                            }
+                        }
+                    });
+                }
+            });
+
+            $('body').on('click', '.btnActive', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = btn.data("id");
+                $.ajax({
+                    url: '/admin/VIDEOs/IsActive',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            if (rs.isAcive) {
+                                btn.html("<i class='fa fa-check text-success'></i>");
+                            } else {
+                                btn.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        }
+
+                    }
+                });
+            });
+        });
+    </script>
+}

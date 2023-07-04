@@ -1,0 +1,74 @@
+﻿@model COURSE_CNTT.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="~/css/login.css" rel="stylesheet" />
+<section class="container forms">
+    <div class="form login">
+        <div class="form-content">
+            <header>Đăng ký</header>
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <form action="#">
+                    <div class="field input-field">
+                        @*<input type="email" placeholder="Email" class="input">*@
+                        @Html.TextBoxFor(m => m.FullName, new { @class = "input", @placeholder = "Họ tên" })
+                        @*@Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger", @style = "margin-top: 10px; display: block" })*@
+                    </div>
+                    <div class="field input-field">
+                        @*<input type="email" placeholder="Email" class="input">*@
+                        @Html.TextBoxFor(m => m.Email, new { @class = "input", @placeholder = "Email" })
+                        @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger", @style = "margin-top: 10px; display: block" })*@
+                    </div>
+                    <div class="field input-field">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                        @*@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger", @style = "margin-top: 10px; display: block" })*@
+                    </div>
+                    <div class="field input-field">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Nhập lại mật khẩu" })
+                        @*@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger", @style = "margin-top: 10px; display: block" })*@
+                    </div>
+                    <div class="field input-field">
+                        @Html.DropDownListFor(x => x.khoa, ViewBag.MaHP as SelectList, "- Bạn là sinh viên khóa nào -", new { @class = "form-control", @style = "width: 100%; height: 100%; font-size: 16px; display: block" })
+                        @*@Html.ValidationMessageFor(x => x.khoa, "", new { @class = "text-danger", @style = "margin-top: 10px; display: block" })*@
+                    </div>
+
+                    <div class="field button-field">
+                        <button type="submit">Đăng ký</button>
+                    </div>
+
+                </form>
+            }
+
+            <div class="form-link">
+                <span>Bạn đã có tài khoản? <a href="/account/login" class="link signup-link">Đăng nhập</a></span>
+            </div>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="media-options">
+            <a href="#" class="field facebook">
+
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/2048px-Facebook_f_logo_%282021%29.svg.png" alt="" class="bx bxl-facebook facebook-icon" />
+                <span>Login with Facebook</span>
+            </a>
+        </div>
+
+        <div class="media-options">
+            <a href="#" class="field google">
+                <img src="https://static.vecteezy.com/system/resources/previews/009/469/630/original/google-logo-isolated-editorial-icon-free-vector.jpg" alt="" class="google-img">
+                <span>Login with Google</span>
+            </a>
+        </div>
+
+    </div>
+</section>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

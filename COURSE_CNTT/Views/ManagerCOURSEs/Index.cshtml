@@ -1,0 +1,42 @@
+﻿@model IEnumerable<COURSE_CNTT.Models.IE.CTQLCOURSE>
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/css/menu.css" rel="stylesheet" />
+
+
+<div class="App_withSidebarContent__o4VlQ">
+    <section class="index-module_grid__1q71E index-module_fullWidth__3X-6x" style="max-width: 1920px">
+        <div class="DefaultLayout_container__NgAo7">
+            <div class="DefaultLayout_container-top__l5XfT">
+                <h1 class="DefaultLayout_heading__AvBHu">Khóa học của tôi</h1>
+            </div>
+            <div class="container-body">
+                <div class="ScrollList_vertical__hG0sb UsersCourses_content__qH4IR">
+                    <div class="ScrollList_body__iMN-l">
+                        <section class="index-module_row__-AHgh" style="margin-left: -12px; margin-right: -12px; display: flex; flex-wrap: wrap;">
+
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-4__30Uoi index-module_l-3__MjWvb">
+                                        <div class="CommonItem_wrapper__1FbHi Home_courseItem__aIeZ4" style="padding-bottom: 23px;">
+                                            <a class="CommonItem_thumb__ew8Jj CommonItem_has-link__VLLrX" href="@Url.Action("Index","COURSE",new { @id = item.MACOURSE })" style="background-image: url('@item.Hinh')">
+                                                <button class="Button_btn__RW1e2 CommonItem_cta-btn__OK+oX"> Xem khóa học </button>
+                                            </a>
+                                            <h3 class="CommonItem_title__EpYrE" style="font-weight: 600;">
+                                                <a href="#">@item.TENCOURSE</a>
+                                            </h3>
+                                        </div>
+                                    </section>
+                                }
+                            }
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

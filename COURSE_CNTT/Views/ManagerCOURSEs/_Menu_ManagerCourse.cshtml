@@ -1,0 +1,30 @@
+﻿@model IEnumerable<COURSE_CNTT.Models.IE.CTQLCOURSE>
+    @using COURSE_CNTT.Models.IE
+@using COURSE_CNTT.repository
+    @{ 
+        var list = new List<CTQLCOURSE>();
+        if(Session["MaGH"] != null)
+        {
+           
+        }
+
+    }
+
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+
+        <div class="MyCourses_content__YVcRz">
+            <div class="MyCourses_course-item__QZjzt">
+                <a href="#">
+                    <img class="MyCourses_course-thumb__eJEMK" src="@item.Hinh" alt="Alternate Text" />
+                </a>
+                <div class="MyCourses_course-info__lBFc3">
+                    <h3 class="MyCourses_course-title__cxlMF"><a href="#">@item.TENCOURSE</a></h3>
+                    <p class="MyCourses_last-completed__Ar6Yh">Học cách đây </p>
+                </div>
+            </div>
+        </div>
+    }
+}

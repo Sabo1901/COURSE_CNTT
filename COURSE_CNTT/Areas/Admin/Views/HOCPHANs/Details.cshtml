@@ -1,0 +1,51 @@
+﻿@model COURSE_CNTT.Models.IE.HOCPHAN
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HOCPHAN</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenHP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenHP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hocki)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hocki)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tinchi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tinchi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaHPHoctruoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaHPHoctruoc)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaHP }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

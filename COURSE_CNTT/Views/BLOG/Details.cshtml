@@ -1,0 +1,74 @@
+﻿@model COURSE_CNTT.Models.IE.BLOG
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    TimeSpan ngaytao = ViewBag.ngay;
+}
+<link href="~/css/blog.css" rel="stylesheet" />
+<div class="BlogDetail_wrapper__9lHHY">
+    <section class="index-module_grid__1q71E index-module_fullWidth__3X-6x">
+        <section class="index-module_row__-AHgh">
+            <section class="index-module_col__2EQm9 index-module_c-12__u7UXF index-module_m-12__2CxUL index-module_l-6__JoV9k">
+                <div>
+                    <h1 class="BlogDetail_heading__DUpyK" style="font-weight: 700; color: black; margin-bottom: 40px;">@Model.TIEUDE</h1>
+                    <div class="BlogDetail_header__w09Xd">
+                        <div class="BlogDetail_user__Q6EHE">
+                            <a href="/user/details/@Model.USER.Id">
+                                <div class="FallbackAvatar_avatar__gmj3S" style="--font-size:5.6px;">
+                                    @if (Model.USER.Anh != null)
+                                    {
+                                        <img class="NavBar_avatar__OG7ib" src="@Model.USER.Anh" alt="1118">
+
+                                    }
+                                    else
+                                    {
+                                        <img class="NavBar_avatar__OG7ib" src="https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg" alt="1118">
+
+                                    }
+                                    @*<img src="@Model.USER.Anh" alt="@Model.USER.FullName">*@
+                                </div>
+                            </a>
+                            <div class="BlogDetail_info__3xVU9">
+                                <a href="/user/details/@Model.USER.Id"><span class="BlogDetail_name__FKdW-">@Model.USER.FullName</span></a>
+                                @if (ngaytao.Hours < 1)
+                                {
+                                    <p class="BlogDetail_time__J0n0e">@ngaytao.Minutes phút trước</p>
+                                }
+                                else
+                                {
+                                    if (ngaytao.Hours < 24 && ngaytao.Days < 1)
+                                    {
+                                        <p class="BlogDetail_time__J0n0e">@ngaytao.Hours giờ trước</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="BlogDetail_time__J0n0e">@ngaytao.Days ngày trước</p>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                        @*<div class="BlogDetail_actions__wYPwr">
+                                <div class="Bookmark_toggleBtn__sSS-2 BlogDetail_optionBtn__k9OVy">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="bookmark" class="svg-inline--fa fa-bookmark " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                        <path fill="currentColor" d="M336 0h-288C21.49 0 0 21.49 0 48v431.9c0 24.7 26.79 40.08 48.12 27.64L192 423.6l143.9 83.93C357.2 519.1 384 504.6 384 479.9V48C384 21.49 362.5 0 336 0zM336 452L192 368l-144 84V54C48 50.63 50.63 48 53.1 48h276C333.4 48 336 50.63 336 54V452z"></path>
+                                    </svg>
+                                </div>
+                                <div class="BlogDetail_optionBtn__k9OVy" aria-expanded="false">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis" class="svg-inline--fa fa-ellipsis " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path fill="currentColor" d="M120 256C120 286.9 94.93 312 64 312C33.07 312 8 286.9 8 256C8 225.1 33.07 200 64 200C94.93 200 120 225.1 120 256zM280 256C280 286.9 254.9 312 224 312C193.1 312 168 286.9 168 256C168 225.1 193.1 200 224 200C254.9 200 280 225.1 280 256zM328 256C328 225.1 353.1 200 384 200C414.9 200 440 225.1 440 256C440 286.9 414.9 312 384 312C353.1 312 328 286.9 328 256z"></path>
+                                    </svg>
+                                </div>
+                            </div>*@
+                    </div>
+                    <div class="MarkdownParser_wrapper__JYN63 BlogDetail_markdownParser__QFL3L" style="--font-size:1.8rem; --line-height:2;">
+                        <p>
+                            @Html.Raw(Model.chitiet)
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </section>
+</div>
+

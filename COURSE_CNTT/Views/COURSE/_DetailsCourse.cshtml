@@ -1,0 +1,68 @@
+﻿@model IEnumerable<COURSE_CNTT.Models.IE.VIDEO>
+
+@{
+    var Tongchuong = ViewBag.Chuong;
+    var bai = ViewBag.count;
+
+}
+
+
+@if (Model != null && Model.Any())
+{
+    string tenchuong = null;
+    int count = 0;
+    int dem = 0;
+    foreach (var item in Model)
+    {
+        foreach (var itemss in Model)
+        {
+            if (itemss.TENCHUONG == item.TENCHUONG)
+            {
+                count++;
+                dem = count;
+            }
+            else {
+               count= dem - count;
+                count = 0;
+            }
+            
+        }
+        if (tenchuong != item.TENCHUONG)
+        {
+            <div class="product-details-tab ">
+                <div class="nav-item toggle-btn inactiveShowContent">
+                    <div class="nav_chitiet">
+                        <span class="name-course" style="text-align: center; font-family: sans-serif; text-decoration: none"><strong>@item.TENCHUONG</strong></span>
+                        <p class="timeCoures" style="font-weight: 600;">@dem bài học</p>
+                    </div>
+                </div>
+                <br />
+                <div class="tab-content">
+                    
+                    @foreach (var items in Model)
+                    {
+                        
+                        if (items.TENCHUONG == item.TENCHUONG)
+                        {
+                            // count++;
+                            <div class="tab-content-item">
+                                <div class="chitiet_course">
+                                    <span class="fas fa-play-circle CurriculumOfCourse_icon__1fxR9 CurriculumOfCourse_video__GQtG1"></span>
+                                    <div class="CurriculumOfCourse_lessonName__llwRr" style="float: left; margin-left: 10px;">@items.TENBAI</div>
+
+                                    <span class="time_course">@items.THOILUONGVIDEO</span>
+                                </div>
+                            </div>
+
+                        }
+                        
+
+                    }
+
+                </div>
+            </div>
+        }
+
+        tenchuong = item.TENCHUONG;
+    }
+}
